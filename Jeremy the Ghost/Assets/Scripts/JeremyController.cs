@@ -28,6 +28,9 @@ public class JeremyController : MonoBehaviour
     private float thl;
     private float thu;
 
+    private bool keyPressed;
+    private Vector2 normalizedInput;
+
     private void Start()
     { 
         thr = movementSpeed * Time.fixedDeltaTime * thresholdRightMove;
@@ -37,7 +40,21 @@ public class JeremyController : MonoBehaviour
     
     void Update()
     {
+        Vector2 normalizedInputTemp = GetInputNormalized();
+        if (normalizedInputTemp != Vector2.zero)
+        {
+            keyPressed = true;
+            normalizedInput = normalizedInputTemp;
+            Debug.Log("Key pressed");
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (!keyPressed) return;
+        Debug.Log("Moved");
         Move();
+        keyPressed = false;
     }
 
     Vector2 GetInputNormalized()
@@ -51,6 +68,6 @@ public class JeremyController : MonoBehaviour
 
     void Move()
     {
-        rb.AddForce(GetInputNormalized() * movementSpeed);
+        rb.AddForce(normalizedInput * movementSpeed);
     }
 }
