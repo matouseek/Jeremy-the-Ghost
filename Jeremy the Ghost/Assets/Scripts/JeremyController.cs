@@ -45,14 +45,12 @@ public class JeremyController : MonoBehaviour
         {
             keyPressed = true;
             normalizedInput = normalizedInputTemp;
-            Debug.Log("Key pressed");
         }
     }
 
     private void FixedUpdate()
     {
         if (!keyPressed) return;
-        Debug.Log("Moved");
         Move();
         keyPressed = false;
     }
