@@ -21,7 +21,7 @@ public class PuzzleStart : MonoBehaviour
     {
         puzzleCamera.Priority = 100;
         noGoingBackCollider.SetActive(true);
-        moveController.SetMax(5);
+        moveController.SetMax(10);
         moveController.EnableMoveCounterTMP();
         gameObject.SetActive(false);
     }

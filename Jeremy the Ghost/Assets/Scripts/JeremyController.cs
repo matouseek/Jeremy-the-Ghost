@@ -80,7 +80,7 @@ public class JeremyController : MonoBehaviour
         rb.AddForce(normalizedInput * movementSpeed);
     }
 
-    void Reset()
+    public void Reset()
     {
         rb.position= puzzleRespawn.position;
         rb.velocity = Vector2.zero;
