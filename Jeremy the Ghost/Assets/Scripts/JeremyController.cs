@@ -27,12 +27,20 @@ public class JeremyController : MonoBehaviour
     private float thr;
     private float thl;
     private float thu;
+    private float upMult = 1.4f; // Because we're using RB2D, and we need to fight gravity to make
+                                 // controls tighter we multiply the upwards movement
 
     private bool keyPressed;
     private Vector2 normalizedInput;
 
+    private MoveController moveController;
+
+    private Transform puzzleRespawn;
+
     private void Start()
-    { 
+    {
+        moveController = GameObject.Find("MoveController").GetComponent<MoveController>();
+        puzzleRespawn = GameObject.Find("PuzzleRespawn").transform;
         thr = movementSpeed * Time.fixedDeltaTime * thresholdRightMove;
         thl = movementSpeed * Time.fixedDeltaTime * -thresholdLeftMove;
         thu = movementSpeed * Time.fixedDeltaTime * thresholdUpMove;
@@ -41,11 +49,14 @@ public class JeremyController : MonoBehaviour
     void Update()
     {
         Vector2 normalizedInputTemp = GetInputNormalized();
-        if (normalizedInputTemp != Vector2.zero)
+        if (normalizedInputTemp == Vector2.zero) return;
+        if (moveController.Active && !moveController.DecreaseMoves())
         {
-            keyPressed = true;
-            normalizedInput = normalizedInputTemp;
+            Reset();
+            return;
         }
+        keyPressed = true;
+        normalizedInput = normalizedInputTemp;
     }
 
     private void FixedUpdate()
@@ -60,12 +71,19 @@ public class JeremyController : MonoBehaviour
         var input = Vector2.zero;
         if (Input.GetKeyDown(KeyCode.D) && rb.velocity.x <= thr) { input += Vector2.right; }
         if (Input.GetKeyDown(KeyCode.A) && rb.velocity.x >= thl) { input += Vector2.left; }
-        if (Input.GetKeyDown(KeyCode.W) && rb.velocity.y <= thu) { input += Vector2.up; }
+        if (Input.GetKeyDown(KeyCode.W) && rb.velocity.y <= thu) { input += upMult*Vector2.up; }
         return input;
     }
 
     void Move()
     {
         rb.AddForce(normalizedInput * movementSpeed);
+    }
+
+    void Reset()
+    {
+        rb.position= puzzleRespawn.position;
+        rb.velocity = Vector2.zero;
+        moveController.ResetMoves();
     }
 }

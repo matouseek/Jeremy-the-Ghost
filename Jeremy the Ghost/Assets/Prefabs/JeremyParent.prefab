@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 2035841883241078034}
-  movementSpeed: 300
+  movementSpeed: 500
   thresholdRightMove: 1
   thresholdLeftMove: 1
-  thresholdUpMove: 1
+  thresholdUpMove: 0.5
 --- !u!95 &5305021824733050584
 Animator:
   serializedVersion: 5
@@ -171,7 +171,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0.5
+  m_LinearDrag: 1.8
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
