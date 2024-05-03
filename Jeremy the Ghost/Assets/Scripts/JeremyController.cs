@@ -37,6 +37,12 @@ public class JeremyController : MonoBehaviour
 
     private Transform puzzleRespawn;
 
+    // ---------- Scaring Children ----------
+    public bool CanScare { get; set; }
+    [SerializeField] private AudioClip breathe;
+    [SerializeField] private AudioClip boo;
+    [SerializeField] private AudioSource audioSource;
+
     private void Start()
     {
         moveController = GameObject.Find("MoveController").GetComponent<MoveController>();
@@ -48,6 +54,7 @@ public class JeremyController : MonoBehaviour
     
     void Update()
     {
+        StartCoroutine(ScareChildren());
         Vector2 normalizedInputTemp = GetInputNormalized();
         if (normalizedInputTemp == Vector2.zero) return;
         if (moveController.Active && !moveController.DecreaseMoves())
@@ -85,5 +92,13 @@ public class JeremyController : MonoBehaviour
         rb.position= puzzleRespawn.position;
         rb.velocity = Vector2.zero;
         moveController.ResetMoves();
+    }
+
+    private IEnumerator ScareChildren()
+    {
+        if (!(CanScare && Input.GetKeyDown(KeyCode.Space))) { yield break; }
+        audioSource.PlayOneShot(breathe);
+        yield return new WaitForSeconds(breathe.length);
+        audioSource.PlayOneShot(boo);
     }
 }
