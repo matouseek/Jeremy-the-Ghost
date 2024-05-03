@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class JeremyController : MonoBehaviour
 {
@@ -42,6 +43,9 @@ public class JeremyController : MonoBehaviour
     [SerializeField] private AudioClip breathe;
     [SerializeField] private AudioClip boo;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private Sprite angryJeremySprite;
+    [SerializeField] private Sprite normalJeremySprite;
+    private bool currentlyScaring = false;
 
     private void Start()
     {
@@ -96,9 +100,19 @@ public class JeremyController : MonoBehaviour
 
     private IEnumerator ScareChildren()
     {
-        if (!(CanScare && Input.GetKeyDown(KeyCode.Space))) { yield break; }
+        if (!(CanScare && Input.GetKeyDown(KeyCode.Space)) || currentlyScaring) { yield break; }
+        currentlyScaring = true;
         audioSource.PlayOneShot(breathe);
+        
         yield return new WaitForSeconds(breathe.length);
         audioSource.PlayOneShot(boo);
+        yield return new WaitForSeconds(0.15f);
+        gameObject.GetComponent<SpriteRenderer>().sprite = angryJeremySprite;
+        
+        yield return new WaitForSeconds(0.5f);
+        gameObject.GetComponent<SpriteRenderer>().sprite = normalJeremySprite;
+        
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("Menu");
     }
 }

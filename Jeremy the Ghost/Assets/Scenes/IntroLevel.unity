@@ -826,7 +826,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 42.7, y: -6.2, z: -10.034246}
+  m_LocalPosition: {x: -10.4, y: -6.2, z: -10.034246}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2075,7 +2075,7 @@ Transform:
   m_GameObject: {fileID: 1016883448}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 79.156876, y: -4.4734144, z: 5.5008926}
+  m_LocalPosition: {x: 57.27123, y: -4.4229136, z: 5.662791}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2145,8 +2145,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091371437}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07532763, y: -0.0022738595, z: 0.00017177287, w: 0.99715626}
-  m_LocalPosition: {x: 78.81122, y: -4.4897847, z: -4.551587}
+  m_LocalRotation: {x: 0.07823257, y: -0.00060851284, z: 0.00004775188, w: 0.99693495}
+  m_LocalPosition: {x: 57.27123, y: -4.4229136, z: -4.337209}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2218,7 +2218,7 @@ Transform:
   m_GameObject: {fileID: 1207948447}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 42.7, y: -6.2, z: -10.034246}
+  m_LocalPosition: {x: -10.4, y: -6.2, z: -10.034246}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3420,7 +3420,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1229285155421747069, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 42.7
+      value: -10.4
       objectReference: {fileID: 0}
     - target: {fileID: 1229285155421747069, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3462,6 +3462,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: JeremyParent
       objectReference: {fileID: 0}
+    - target: {fileID: 4468872248461541588, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
+      propertyPath: angryJeremySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 98d2a59f668014d808489bfcebc597df, type: 3}
+    - target: {fileID: 4468872248461541588, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
+      propertyPath: normalJeremySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 107f18b9a6261459eb9137bb0274fe61, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
