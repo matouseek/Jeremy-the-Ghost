@@ -107,6 +107,8 @@ MonoBehaviour:
   breathe: {fileID: 8300000, guid: 7641a612fd75c4133969ed172d2435dc, type: 3}
   boo: {fileID: 8300000, guid: 0ceee0a8c95bd414590390f7c83bb8f1, type: 3}
   audioSource: {fileID: 1732801368620692330}
+  angryJeremySprite: {fileID: 21300000, guid: 98d2a59f668014d808489bfcebc597df, type: 3}
+  normalJeremySprite: {fileID: 21300000, guid: 107f18b9a6261459eb9137bb0274fe61, type: 3}
 --- !u!95 &5305021824733050584
 Animator:
   serializedVersion: 5
@@ -237,7 +239,7 @@ GameObject:
   - component: {fileID: 6386458741788656907}
   m_Layer: 0
   m_Name: JeremyParent
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

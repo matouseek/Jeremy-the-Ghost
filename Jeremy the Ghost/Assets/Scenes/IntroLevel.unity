@@ -2145,7 +2145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091371437}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07823257, y: -0.00060851284, z: 0.00004775188, w: 0.99693495}
+  m_LocalRotation: {x: 0.07823259, y: -0.0006085593, z: 0.000047755533, w: 0.99693495}
   m_LocalPosition: {x: 57.27123, y: -4.4229136, z: -4.337209}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3462,6 +3462,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: JeremyParent
       objectReference: {fileID: 0}
+    - target: {fileID: 4468872248461541588, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
+      propertyPath: puzzleRespawn
+      value: 
+      objectReference: {fileID: 1692432641}
     - target: {fileID: 4468872248461541588, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
       propertyPath: angryJeremySprite
       value: 

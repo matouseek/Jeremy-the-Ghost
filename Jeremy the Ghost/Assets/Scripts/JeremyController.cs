@@ -36,7 +36,7 @@ public class JeremyController : MonoBehaviour
 
     private MoveController moveController;
 
-    private Transform puzzleRespawn;
+    [SerializeField] private Transform puzzleRespawn;
 
     // ---------- Scaring Children ----------
     public bool CanScare { get; set; }
@@ -50,7 +50,6 @@ public class JeremyController : MonoBehaviour
     private void Start()
     {
         moveController = GameObject.Find("MoveController").GetComponent<MoveController>();
-        puzzleRespawn = GameObject.Find("PuzzleRespawn").transform;
         thr = movementSpeed * Time.fixedDeltaTime * thresholdRightMove;
         thl = movementSpeed * Time.fixedDeltaTime * -thresholdLeftMove;
         thu = movementSpeed * Time.fixedDeltaTime * thresholdUpMove;
