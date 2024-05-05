@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -21,7 +22,7 @@ public class PuzzleStart : MonoBehaviour
     {
         puzzleCamera.Priority = 100;
         noGoingBackCollider.SetActive(true);
-        moveController.SetMax(10);
+        moveController.SetMax(MaxPuzzleMoves);
         moveController.EnableMoveCounterTMP();
         gameObject.SetActive(false);
     }

@@ -2145,7 +2145,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091371437}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07823259, y: -0.0006085593, z: 0.000047755533, w: 0.99693495}
+  m_LocalRotation: {x: 0.078232594, y: -0.00060852466, z: 0.00004775282, w: 0.99693495}
   m_LocalPosition: {x: 57.27123, y: -4.4229136, z: -4.337209}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2997,7 +2997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noGoingBackCollider: {fileID: 1519553708}
   puzzleCamera: {fileID: 2070137006}
-  MaxPuzzleMoves: 20
+  MaxPuzzleMoves: 10
 --- !u!61 &1984812437
 BoxCollider2D:
   m_ObjectHideFlags: 0

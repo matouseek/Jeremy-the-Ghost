@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8077477920565563421}
   - component: {fileID: 2717267781467402786}
   - component: {fileID: 4499041383378648677}
-  - component: {fileID: 4890892609784776837}
+  - component: {fileID: 3581128547977048753}
   m_Layer: 0
   m_Name: Sawblade
   m_TagString: Untagged
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 5a7f65c2dd5a74e44833ad394d35eba0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -140,10 +140,10 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0088248355, y: -0.0110892225}
   serializedVersion: 2
-  m_Radius: 0.38
---- !u!114 &4890892609784776837
+  m_Radius: 0.3110428
+--- !u!114 &3581128547977048753
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -152,6 +152,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1248294059196132951}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5121df95a83d453f97fd8c798fd70d5, type: 3}
+  m_Script: {fileID: 11500000, guid: e50f8409258794c8b82cce96d3a2faae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
