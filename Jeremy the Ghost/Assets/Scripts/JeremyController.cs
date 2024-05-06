@@ -38,6 +38,9 @@ public class JeremyController : MonoBehaviour
 
     [SerializeField] private Transform puzzleRespawn;
 
+    private List<string> scenesToLoad = new List<string>(){"Level1", "Menu"};
+    private int sceneToLoadIndex = 0;
+
     // ---------- Scaring Children ----------
     public bool CanScare { get; set; }
     [SerializeField] private AudioClip breathe;
@@ -112,6 +115,7 @@ public class JeremyController : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sprite = normalJeremySprite;
         
         yield return new WaitForSeconds(1);
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene(scenesToLoad[sceneToLoadIndex++]);
+        sceneToLoadIndex %= scenesToLoad.Count;
     }
 }
