@@ -36,10 +36,10 @@ public class JeremyController : MonoBehaviour
 
     private MoveController moveController;
 
-    [SerializeField] private Transform puzzleRespawn;
+    public Transform puzzleRespawn;
 
     private List<string> scenesToLoad = new List<string>(){"Level1", "Menu"};
-    private int sceneToLoadIndex = 0;
+    private static int sceneToLoadIndex = 0;
 
     // ---------- Scaring Children ----------
     public bool CanScare { get; set; }
