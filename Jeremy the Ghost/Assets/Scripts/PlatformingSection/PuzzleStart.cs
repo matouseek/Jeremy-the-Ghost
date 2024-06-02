@@ -23,7 +23,7 @@ public class PuzzleStart : MonoBehaviour
         puzzleCamera.Priority = 100;
         noGoingBackCollider.SetActive(true);
         moveController.SetMax(MaxPuzzleMoves);
-        moveController.EnableMoveCounterTMP();
+        moveController.EnableMoveCounter();
         gameObject.SetActive(false);
     }
 }

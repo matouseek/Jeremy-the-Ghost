@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 612098635425874257}
   - component: {fileID: 7135669562503441391}
   m_Layer: 0
-  m_Name: Arrow
+  m_Name: ArrowSprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 3150296750969533632}
   - component: {fileID: 8398562364670595969}
   m_Layer: 0
-  m_Name: ArrowParent
+  m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -316,9 +316,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a094b65c37ba64cf1a0da3f7e65aaea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _actions: []
   camera1: {fileID: 0}
   camera2: {fileID: 0}
   noGoingBackCollider: {fileID: 0}
+  hideMoves: 0
+  setNewMax: 0
+  newMovesMax: 0
+  newRespawn: {fileID: 0}
 --- !u!1 &8272930929051787478
 GameObject:
   m_ObjectHideFlags: 0

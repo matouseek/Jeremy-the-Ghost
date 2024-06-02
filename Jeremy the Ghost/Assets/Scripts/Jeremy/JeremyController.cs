@@ -63,7 +63,7 @@ public class JeremyController : MonoBehaviour
         StartCoroutine(ScareChildren());
         Vector2 normalizedInputTemp = GetInputNormalized();
         if (normalizedInputTemp == Vector2.zero) return;
-        if (moveController.Active && !moveController.DecreaseMoves())
+        if (!moveController.DecreaseMoves())
         {
             Reset();
             return;

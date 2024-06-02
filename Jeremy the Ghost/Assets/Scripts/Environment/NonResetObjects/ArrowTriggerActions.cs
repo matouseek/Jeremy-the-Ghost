@@ -1,10 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Events;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-public class ArrowActions : MonoBehaviour
+public class ArrowTriggerActions : MonoBehaviour
 {
     [SerializeField] private Cinemachine.CinemachineVirtualCamera camera1;
     [SerializeField] private Cinemachine.CinemachineVirtualCamera camera2;
@@ -24,7 +24,7 @@ public class ArrowActions : MonoBehaviour
         noGoingBackCollider.SetActive(true);
         if (hideMoves)
         {
-            GameObject.Find("MoveController").GetComponent<MoveController>().DisableMoveCounterTMP();
+            GameObject.Find("MoveController").GetComponent<MoveController>().DisableMoveCounter();
         }
         else if (setNewMax)
         {

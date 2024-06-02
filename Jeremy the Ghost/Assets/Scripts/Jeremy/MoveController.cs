@@ -6,14 +6,29 @@ using TMPro;
 
 public class MoveController : MonoBehaviour
 {
+    public static MoveController Instance { get; private set;  }
+
     [SerializeField] private TextMeshProUGUI moveCounterTMP;
     [SerializeField] private int maxMoves;
     [SerializeField] private int currentMoves;
 
-    public bool Active { get; private set; }
+    private bool _active;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this) 
+        { 
+            Destroy(this); 
+        } 
+        else 
+        { 
+            Instance = this; 
+        } 
+    }
 
     public bool DecreaseMoves()
     {
+        if (!_active) return true;
         currentMoves--;
         bool returnVal = true;
         if (currentMoves < 0)
@@ -39,16 +54,16 @@ public class MoveController : MonoBehaviour
         UpdateMovesTMP();
     }
 
-    public void DisableMoveCounterTMP()
+    public void DisableMoveCounter()
     {
         moveCounterTMP.enabled = false;
-        Active = false;
+        _active = false;
     }
     
-    public void EnableMoveCounterTMP()
+    public void EnableMoveCounter()
     {
         moveCounterTMP.enabled = true;
-        Active = true;
+        _active = true;
     }
 
     private void UpdateMovesTMP()
