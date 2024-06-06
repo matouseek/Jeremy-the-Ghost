@@ -1,10 +1,6 @@
-using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Events;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-public class ArrowTriggerActions : MonoBehaviour
+public class ArrowController : MonoBehaviour
 {
     [SerializeField] private Cinemachine.CinemachineVirtualCamera camera1;
     [SerializeField] private Cinemachine.CinemachineVirtualCamera camera2;
@@ -15,7 +11,7 @@ public class ArrowTriggerActions : MonoBehaviour
     [SerializeField] private bool setNewMax = false;
     [SerializeField] private int newMovesMax = 0;
 
-    [SerializeField] [CanBeNull] private GameObject newRespawn;
+    [SerializeField] private GameObject newRespawn;
 
     private void OnTriggerEnter2D(Collider2D other)
     {

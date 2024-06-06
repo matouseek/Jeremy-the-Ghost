@@ -22,8 +22,8 @@ public class MovingObjectSpriteFade : MonoBehaviour
     {
         if (_fadeEndLocation.localPosition.x < _fadeStartLocation.localPosition.x)
         {
-            throw new ArgumentException(
-                "_fadeEndLocation X position has to be greater than or equal to _fadeStartLocation X position.");
+            Debug.LogError(
+                $"X position of {nameof(_fadeEndLocation)} has to be greater than or equal to the X position of {nameof(_fadeStartLocation)}.");
         }
         _fadeDiff = MathF.Abs(_fadeEndLocation.localPosition.x 
                               - _fadeStartLocation.localPosition.x);

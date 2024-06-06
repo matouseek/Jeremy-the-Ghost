@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DamagingObject : MonoBehaviour
+public class DamagingObjectController : MonoBehaviour
 {
+    private readonly string _jeremyTag = "Jeremy";
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(_jeremyTag))
         {
             other.GetComponentInChildren<JeremyController>().Reset();
         }

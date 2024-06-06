@@ -827,7 +827,7 @@ PrefabInstance:
     - target: {fileID: 6819090981457719205, guid: f90c1827e47bf4ac3bd439bf678c7ea2, type: 3}
       propertyPath: jeremy
       value: 
-      objectReference: {fileID: 1094093331}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1741,7 +1741,7 @@ PrefabInstance:
     - target: {fileID: 6730629559375179019, guid: 5335d26a9966b400291ada880e5d0ca5, type: 3}
       propertyPath: jeremy
       value: 
-      objectReference: {fileID: 1094093331}
+      objectReference: {fileID: 0}
     - target: {fileID: 6730629559375179019, guid: 5335d26a9966b400291ada880e5d0ca5, type: 3}
       propertyPath: previousCamera
       value: 
@@ -4051,17 +4051,6 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
---- !u!114 &1094093331 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4468872248461541588, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
-  m_PrefabInstance: {fileID: 1287280071}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6d777aca52204da39a3d27d0af02bdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1094405514
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4752,7 +4741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2027516163760843326, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
       propertyPath: m_Name
-      value: JeremyParent
+      value: Jeremy
       objectReference: {fileID: 0}
     - target: {fileID: 4468872248461541588, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
       propertyPath: puzzleRespawn
@@ -6763,6 +6752,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4052032365158368562, guid: c48578f79b570486b8f5f405ba69480a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6297970839666401053, guid: c48578f79b570486b8f5f405ba69480a, type: 3}
       propertyPath: m_Name
       value: HammerRight
