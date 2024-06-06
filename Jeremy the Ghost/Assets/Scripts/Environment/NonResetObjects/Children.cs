@@ -1,15 +1,18 @@
 using UnityEngine;
 
+/// <summary>
+/// Deals with all actions regarding the children and scaring them.
+/// </summary>
 public class Children : MonoBehaviour
 {
-    // Text that appears when jeremy is in range to scare children
+    // Text that appears when Jeremy is in range to scare children
     [SerializeField] private GameObject _scareChildrenText;
     [SerializeField] private JeremyController _jeremy;
 
     [SerializeField] private bool _changeCamerasOnTriggerEnter;
     // Whatever camera is used before triggering the collider
     [SerializeField] private Cinemachine.CinemachineVirtualCamera _previousCamera;
-    // Camera used when jeremy has the option to scare the children (triggers the collider)
+    // Camera used when Jeremy has the option to scare the children (triggers the collider)
     [SerializeField] private Cinemachine.CinemachineVirtualCamera _newCamera;
 
     private void Start()
@@ -17,6 +20,10 @@ public class Children : MonoBehaviour
         ValidateFields();
     }
     
+    /// <summary>
+    /// If user wants to change cameras on trigger enter
+    /// this checks whether both cameras were assigned.
+    /// </summary>
     private void ValidateFields()
     {
         if (_changeCamerasOnTriggerEnter && (_previousCamera == null || _newCamera == null))

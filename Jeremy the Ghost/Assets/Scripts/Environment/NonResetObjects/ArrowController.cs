@@ -20,11 +20,11 @@ public class ArrowController : MonoBehaviour
         noGoingBackCollider.SetActive(true);
         if (hideMoves)
         {
-            GameObject.Find("MoveController").GetComponent<MoveController>().DisableMoveCounter();
+            MoveManager.Instance.DisableMoveCounter();
         }
         else if (setNewMax)
         {
-            GameObject.Find("MoveController").GetComponent<MoveController>().SetMax(newMovesMax);
+            MoveManager.Instance.MaxMoves = newMovesMax;
         }
         if (newRespawn is not null)
         {
