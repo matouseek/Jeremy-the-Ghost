@@ -213,9 +213,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f7536fa94daa42be92cd3a5d4cd0731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noGoingBackCollider: {fileID: 1784853140}
-  puzzleCamera: {fileID: 247574995}
-  MaxPuzzleMoves: 13
+  _noGoingBackCollider: {fileID: 0}
+  _previousCamera: {fileID: 0}
+  _ptsCamera: {fileID: 0}
+  _maxPtsMoves: 20
 --- !u!114 &46991534 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7815258092248689085, guid: 5ff2f936f376649a3970be1c0671a9e0, type: 3}
@@ -1129,7 +1130,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5943609893259983260, guid: 6cd52fe2fabd8405f9e766ba7b10078a, type: 3}
       propertyPath: m_Name
-      value: MoveController
+      value: MoveManager
       objectReference: {fileID: 0}
     - target: {fileID: 6543752997921908194, guid: 6cd52fe2fabd8405f9e766ba7b10078a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1173,6 +1174,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7418492292450721012, guid: 6cd52fe2fabd8405f9e766ba7b10078a, type: 3}
       propertyPath: moveCounterTMP
+      value: 
+      objectReference: {fileID: 46991534}
+    - target: {fileID: 7418492292450721012, guid: 6cd52fe2fabd8405f9e766ba7b10078a, type: 3}
+      propertyPath: _moveCounterTMP
       value: 
       objectReference: {fileID: 46991534}
     m_RemovedComponents: []
@@ -4787,6 +4792,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jeremy
       objectReference: {fileID: 0}
+    - target: {fileID: 3956904480402676125, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
+      propertyPath: _rb
+      value: 
+      objectReference: {fileID: 1287280076}
+    - target: {fileID: 3956904480402676125, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
+      propertyPath: _movementSpeed
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 4468872248461541588, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
       propertyPath: puzzleRespawn
       value: 
@@ -4799,6 +4812,11 @@ PrefabInstance:
 --- !u!4 &1287280072 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1229285155421747069, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
+  m_PrefabInstance: {fileID: 1287280071}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &1287280076 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 2035841883241078034, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
   m_PrefabInstance: {fileID: 1287280071}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1296303791
@@ -5978,6 +5996,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2394598524722945374, guid: 5ff2f936f376649a3970be1c0671a9e0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2394598524722945374, guid: 5ff2f936f376649a3970be1c0671a9e0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5478842834534008798, guid: 5ff2f936f376649a3970be1c0671a9e0, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -6069,6 +6095,14 @@ PrefabInstance:
     - target: {fileID: 7993785949977774306, guid: 5ff2f936f376649a3970be1c0671a9e0, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443502661879797674, guid: 5ff2f936f376649a3970be1c0671a9e0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 136.55225
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443502661879797674, guid: 5ff2f936f376649a3970be1c0671a9e0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 46.57495
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
