@@ -22,6 +22,8 @@ public class JeremyController : MonoBehaviour
     [SerializeField] private Sprite _normalJeremySprite;
     private AudioSource _audioSource;
     private bool _currentlyScaring = false;
+    [SerializeField] private GameObject _cantScareChildrenTextBox;
+    private bool _showingCantScareChildrenText = false;
 
     private void Start()
     {
@@ -80,8 +82,12 @@ public class JeremyController : MonoBehaviour
 
     private void TryScareChildren()
     {
-        if (!CanScare || !Input.GetKeyDown(KeyCode.Space) || _currentlyScaring) return;
-        StartCoroutine(ScareChildren());
+        if (!Input.GetKeyDown(KeyCode.Space)) return;
+        if (!CanScare) { // Player pressed space but is not in scaring range;
+            StartCoroutine(ShowCantScareText());
+            return;
+        }
+        if (!_currentlyScaring) StartCoroutine(ScareChildren());
     }
     
     /// <summary>
@@ -102,9 +108,21 @@ public class JeremyController : MonoBehaviour
         yield return new WaitForSeconds(0.5f); // After this time passes Jeremys sprite changes back
         gameObject.GetComponentInChildren<SpriteRenderer>().sprite = _normalJeremySprite;
         
-        yield return new WaitForSeconds(1); // Scaring children finishes the level so we load another one
+        yield return new WaitForSeconds(1);
+        // Scaring children finishes the level
         MenuManager.CompleteLevel();
         MenuManager.showPlayMenuOnLoad = true;
         SceneManager.LoadScene("Menu");
+    }
+
+    private IEnumerator ShowCantScareText()
+    {
+        if(_showingCantScareChildrenText) yield break;
+        
+        _showingCantScareChildrenText = true;
+        _cantScareChildrenTextBox.SetActive(true);
+        yield return new WaitForSeconds(3);
+        _cantScareChildrenTextBox.SetActive(false);
+        _showingCantScareChildrenText = false;
     }
 }
