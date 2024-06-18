@@ -12,6 +12,8 @@ public class EnergyBarController : MonoBehaviour
     public float MoveCost => _moveCost; // Cost per one move
     
     [SerializeField] private float _rechargeAmountPerUpdate; // Energy constantly recharges (see Update)
+    [SerializeField] private float _slowRechargeSubtractionConstant; // Used when player holds S,
+                                                                     // the recharge amount is decreased
 
     private void Start()
     {
@@ -31,6 +33,22 @@ public class EnergyBarController : MonoBehaviour
     {
         CurrentEnergy -= MoveCost;
         UpdateSlider();
+    }
+
+    /// <summary>
+    /// Slows the energy recharge rate. Used when player presses the S key.
+    /// </summary>
+    public void SlowEnergyRecharge()
+    {
+        _rechargeAmountPerUpdate -= _slowRechargeSubtractionConstant;
+    }
+
+    /// <summary>
+    /// Puts the recharge rate back to normal. Used when player lets go of S key.
+    /// </summary>
+    public void PutEnergyRechargeToNormal()
+    {
+        _rechargeAmountPerUpdate += _slowRechargeSubtractionConstant;
     }
     
     private void IncreaseEnergy()

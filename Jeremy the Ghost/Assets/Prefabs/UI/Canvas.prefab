@@ -277,6 +277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveCost: 20
   _rechargeAmountPerUpdate: 40
+  _slowRechargeSubtractionConstant: 30
 --- !u!1 &7898919086109980567
 GameObject:
   m_ObjectHideFlags: 0

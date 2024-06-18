@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class JeremyController : MonoBehaviour
 {
+    // ---------- Movement ----------
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private float _movementSpeed;
     [SerializeField] private EnergyBarController _energyBar;
@@ -11,6 +12,8 @@ public class JeremyController : MonoBehaviour
     private Vector2 _normalizedInput;
     private const float _upMult = 1.4f; // Because we're using RB2D we need to
                                         // fight gravity while moving up, so we multiply the upwards movement
+    private bool _dashingDown = false;
+    [SerializeField] private float _downDashSpeedIncrease;
         
     public Transform PSRespawn;
 
@@ -34,6 +37,7 @@ public class JeremyController : MonoBehaviour
     {
         TryScareChildren();
         ResolveMoveInput();
+        ResolveDownDashInput();
     }
 
     private void FixedUpdate()
@@ -47,10 +51,10 @@ public class JeremyController : MonoBehaviour
         
         var input = Vector2.zero;
         
-        if (Input.GetKeyDown(KeyCode.D)) { input += Vector2.right; }
-        if (Input.GetKeyDown(KeyCode.A)) { input += Vector2.left; }
-        if (Input.GetKeyDown(KeyCode.W)) { input += _upMult*Vector2.up; }
-        
+        if (Input.GetKeyDown(KeyCode.D)) input += Vector2.right;
+        if (Input.GetKeyDown(KeyCode.A)) input += Vector2.left;
+        if (Input.GetKeyDown(KeyCode.W)) input += _upMult*Vector2.up;
+
         if (input == Vector2.zero) return; // No move input from player
         if (!MoveManager.Instance.DecreaseAvailableMoves())
         {
@@ -65,8 +69,26 @@ public class JeremyController : MonoBehaviour
         _energyBar.DecreaseEnergy();
     }
 
+    private void ResolveDownDashInput()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            _energyBar.SlowEnergyRecharge();
+            _dashingDown = true;
+        }
+        else if(Input.GetKeyUp(KeyCode.S))
+        {
+            _energyBar.PutEnergyRechargeToNormal();
+            _dashingDown = false;
+        }
+    }
+
     private void MoveOnInput()
     {
+        // Act based on S hold
+        if (_dashingDown) _rb.AddForce(Vector2.down * _downDashSpeedIncrease);
+        
+        // Act based on W, A, D moves
         if (!_moved) return;
         _rb.AddForce(_normalizedInput * _movementSpeed);
         _moved = false;

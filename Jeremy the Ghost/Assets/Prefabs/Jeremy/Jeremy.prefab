@@ -220,6 +220,7 @@ MonoBehaviour:
   _rb: {fileID: 2035841883241078034}
   _movementSpeed: 500
   _energyBar: {fileID: 0}
+  _downDashSpeedIncrease: 30
   PSRespawn: {fileID: 0}
   _breatheAudioClip: {fileID: 8300000, guid: 7641a612fd75c4133969ed172d2435dc, type: 3}
   _booAudioClip: {fileID: 8300000, guid: 0ceee0a8c95bd414590390f7c83bb8f1, type: 3}
