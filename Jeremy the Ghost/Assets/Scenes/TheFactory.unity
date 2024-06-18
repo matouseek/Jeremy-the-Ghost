@@ -5024,6 +5024,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1287280076}
     - target: {fileID: 3956904480402676125, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
+      propertyPath: PSRespawn
+      value: 
+      objectReference: {fileID: 1563243447}
+    - target: {fileID: 3956904480402676125, guid: 7a7d64e6861dd4143a1ace7455e0fee3, type: 3}
       propertyPath: _energyBar
       value: 
       objectReference: {fileID: 1885737867}
@@ -5544,6 +5548,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!4 &1563243447 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 130780340017595932, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
+  m_PrefabInstance: {fileID: 814445421}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1570516453
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6258,14 +6267,6 @@ PrefabInstance:
     - target: {fileID: 7993785949977774306, guid: 5ff2f936f376649a3970be1c0671a9e0, type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 8443502661879797674, guid: 5ff2f936f376649a3970be1c0671a9e0, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 136.55225
-      objectReference: {fileID: 0}
-    - target: {fileID: 8443502661879797674, guid: 5ff2f936f376649a3970be1c0671a9e0, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 46.57495
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

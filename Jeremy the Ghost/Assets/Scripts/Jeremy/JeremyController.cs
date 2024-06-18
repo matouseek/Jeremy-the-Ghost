@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,11 +11,8 @@ public class JeremyController : MonoBehaviour
     private Vector2 _normalizedInput;
     private const float _upMult = 1.4f; // Because we're using RB2D we need to
                                         // fight gravity while moving up, so we multiply the upwards movement
-
-    public Transform PSRespawn { get; set; }
-
-    private readonly List<string> scenesToLoad = new (){"Level1", "Menu"};
-    private static int sceneToLoadIndex = 0;
+        
+    public Transform PSRespawn;
 
     // ---------- Scaring Children ----------
     public bool CanScare { get; set; }
@@ -107,12 +103,8 @@ public class JeremyController : MonoBehaviour
         gameObject.GetComponentInChildren<SpriteRenderer>().sprite = _normalJeremySprite;
         
         yield return new WaitForSeconds(1); // Scaring children finishes the level so we load another one
-        LoadNextLevel();
-    }
-
-    private void LoadNextLevel()
-    {
-        SceneManager.LoadScene(scenesToLoad[sceneToLoadIndex++]);
-        sceneToLoadIndex %= scenesToLoad.Count;
+        MenuManager.CompleteLevel();
+        MenuManager.showPlayMenuOnLoad = true;
+        SceneManager.LoadScene("Menu");
     }
 }
