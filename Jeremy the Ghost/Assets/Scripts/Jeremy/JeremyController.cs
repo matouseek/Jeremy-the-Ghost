@@ -132,8 +132,14 @@ public class JeremyController : MonoBehaviour
         
         yield return new WaitForSeconds(1);
         // Scaring children finishes the level
+        FinishLevel();
+    }
+
+    private void FinishLevel()
+    {
         MenuManager.CompleteLevel();
         MenuManager.ShowPlayMenuOnLoad = true;
+        Leaderboard.SetEntry(PlayerPrefs.GetString("Name"), 10);
         SceneManager.LoadScene("Menu");
     }
 

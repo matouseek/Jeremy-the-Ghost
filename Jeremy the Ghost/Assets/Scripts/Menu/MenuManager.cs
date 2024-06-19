@@ -143,6 +143,7 @@ private void Awake()
     {
         PlayerPrefs.SetString("Name", _nameInput.GetComponentInChildren<TMP_InputField>().text);
         _nameInput.SetActive(false);
+        _leaderboard.SetActive(true);
     }
 
     /// <summary>
