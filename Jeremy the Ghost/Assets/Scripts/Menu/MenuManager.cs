@@ -1,17 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 /// <summary>
 /// Handles all actions done in the menu.
 /// </summary>
 public class MenuManager : MonoBehaviour
 {
+    // ---------- All the menus ----------
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _playMenu;
     [SerializeField] private GameObject _leaderboardMenu;
     private GameObject _currentMenu;
 
+    // ---------- Level selection ----------
     private static readonly string[] _levelNames = { "IntroLevel", "TheFactory" };
     [SerializeField] private GameObject[] _levelsButtons = new GameObject[_levelNames.Length];
     private static int _currentlyPlayedLevelIndex = -1;
@@ -20,10 +24,20 @@ public class MenuManager : MonoBehaviour
     // so that the player is loaded immediately into the level selection
     // and not into the main menu
     public static bool ShowPlayMenuOnLoad = false;
-    
-    [SerializeField] private GameObject _nameInput;
 
-    private void Awake()
+    // ---------- Leaderboard ----------
+    [SerializeField] private GameObject _nameInput;
+    [SerializeField] private GameObject _leaderboard;
+    [SerializeField] private TMP_Dropdown _levelSelection;
+    [SerializeField] private TMP_Dropdown _sectionSelection;
+    private static readonly List<List<string>> _levelSections = new () // sections on index i
+                                                                       // represent sections of level _levelNames[i]
+    {
+        new (){ "The Pit" },
+        new (){ "Saw-blade Dance", "Hammered to Oblivion" }
+    };
+
+private void Awake()
     {
         _currentMenu = _mainMenu;
         if(ShowPlayMenuOnLoad) Play(); // Do the same thing as clicking on the Play button
@@ -118,7 +132,8 @@ public class MenuManager : MonoBehaviour
             _nameInput.SetActive(true);
             return;
         }
-        //TODO show leaderboard
+        
+        _leaderboard.SetActive(true);
     }
 
     /// <summary>
@@ -128,6 +143,21 @@ public class MenuManager : MonoBehaviour
     {
         PlayerPrefs.SetString("Name", _nameInput.GetComponentInChildren<TMP_InputField>().text);
         _nameInput.SetActive(false);
+    }
+
+    /// <summary>
+    /// OnClick function for Level selection dropdown in Leaderboard
+    /// </summary>
+    public void SelectLevel()
+    {
+        _sectionSelection.ClearOptions();
+        if (_levelSelection.value == 0) return; // Option for all levels, no section specification
+        foreach (var sectionName in _levelSections[_levelSelection.value-1])
+        {
+            _sectionSelection.options.Add(new TMP_Dropdown.OptionData(sectionName));
+        }
+
+        _sectionSelection.RefreshShownValue();
     }
 
     /// <summary>
