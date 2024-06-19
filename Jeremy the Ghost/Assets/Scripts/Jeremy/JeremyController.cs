@@ -133,7 +133,7 @@ public class JeremyController : MonoBehaviour
         yield return new WaitForSeconds(1);
         // Scaring children finishes the level
         MenuManager.CompleteLevel();
-        MenuManager.showPlayMenuOnLoad = true;
+        MenuManager.ShowPlayMenuOnLoad = true;
         SceneManager.LoadScene("Menu");
     }
 

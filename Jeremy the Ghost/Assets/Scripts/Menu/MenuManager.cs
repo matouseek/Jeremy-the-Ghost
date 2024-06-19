@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 /// <summary>
 /// Handles all actions done in the menu.
@@ -9,19 +9,24 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _playMenu;
+    [SerializeField] private GameObject _leaderboardMenu;
+    private GameObject _currentMenu;
 
     private static readonly string[] _levelNames = { "IntroLevel", "TheFactory" };
-    [SerializeField] private GameObject[] LevelsButtons = new GameObject[_levelNames.Length];
+    [SerializeField] private GameObject[] _levelsButtons = new GameObject[_levelNames.Length];
     private static int _currentlyPlayedLevelIndex = -1;
 
     // This is set from the JeremyController after finishing a level
     // so that the player is loaded immediately into the level selection
     // and not into the main menu
-    public static bool showPlayMenuOnLoad = false;
+    public static bool ShowPlayMenuOnLoad = false;
+    
+    [SerializeField] private GameObject _nameInput;
 
     private void Awake()
     {
-        if(showPlayMenuOnLoad) Play(); // Do the same thing as clicking on the Play button
+        _currentMenu = _mainMenu;
+        if(ShowPlayMenuOnLoad) Play(); // Do the same thing as clicking on the Play button
     }
 
     /// <summary>
@@ -31,6 +36,7 @@ public class MenuManager : MonoBehaviour
     {
         _mainMenu.SetActive(false);
         _playMenu.SetActive(true);
+        _currentMenu = _playMenu;
         ShowPlayableLevels();
     }
 
@@ -43,12 +49,13 @@ public class MenuManager : MonoBehaviour
     }
 
     /// <summary>
-    /// OnClick function for Return button in PlayMenu
+    /// OnClick function for Return button in PlayMenu and Leaderboard
     /// </summary>
-    public void GoBackFromLevelSelection()
+    public void ReturnToMainMenu()
     {
-        _playMenu.SetActive(false);
+        _currentMenu.SetActive(false);
         _mainMenu.SetActive(true);
+        _currentMenu = _mainMenu;
     }
     
     /// <summary>
@@ -91,12 +98,40 @@ public class MenuManager : MonoBehaviour
         for(int i = 0; i < _levelNames.Length; ++i)
         {
             if (PlayerPrefs.GetInt(_levelNames[i]) != 1) continue;
-            LevelsButtons[i].SetActive(true);
+            _levelsButtons[i].SetActive(true);
         }
     }
 
     /// <summary>
-    /// Debugging function to reset all keys.
+    /// OnClick function for Leaderboard button in MainMenu
+    /// </summary>
+    public void ShowLeaderboard()
+    {
+        _mainMenu.SetActive(false);
+        _leaderboardMenu.SetActive(true);
+        _currentMenu = _leaderboardMenu;
+        
+        // The first time a player visits the leaderboard
+        // he is tasked with selecting a name
+        if (!PlayerPrefs.HasKey("Name"))
+        {
+            _nameInput.SetActive(true);
+            return;
+        }
+        //TODO show leaderboard
+    }
+
+    /// <summary>
+    /// OnClick function for Submit button in Leaderboard
+    /// </summary>
+    public void SubmitName()
+    {
+        PlayerPrefs.SetString("Name", _nameInput.GetComponentInChildren<TMP_InputField>().text);
+        _nameInput.SetActive(false);
+    }
+
+    /// <summary>
+    /// Debugging function to delete all player pref keys.
     /// </summary>
     public void DeleteAllKeys()
     {
