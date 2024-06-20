@@ -66,9 +66,10 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     private void ShowPlayableLevels()
     {
-        for(int i = 0; i < LevelManager.Instance.Levels.Count; ++i)
+        // The level at index 0 is always shown
+        for(int i = 1; i < LevelManager.Instance.Levels.Count; ++i)
         {
-            if (!LevelManager.Instance.Levels[i].Completed) continue;
+            if (!LevelManager.Instance.Levels[i-1].Completed) continue;
             _levelSelectionButtons[i].SetActive(true);
         }
     }

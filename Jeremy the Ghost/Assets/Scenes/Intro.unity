@@ -4642,6 +4642,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlatformingSection
       objectReference: {fileID: 0}
+    - target: {fileID: 4898140275002547738, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
+      propertyPath: m_Size.y
+      value: 14.987062
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898140275002547738, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
+      propertyPath: m_Offset.y
+      value: 3.4047453
+      objectReference: {fileID: 0}
+    - target: {fileID: 7672173457405319717, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
+      propertyPath: _levelSectionDescription
+      value: 
+      objectReference: {fileID: 11400000, guid: 4efadbe88090a4c13a4db7b5a1b6061f, type: 2}
+    - target: {fileID: 8328506836420302605, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 19.34
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

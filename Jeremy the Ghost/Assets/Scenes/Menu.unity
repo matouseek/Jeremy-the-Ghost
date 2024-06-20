@@ -6745,8 +6745,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 596014501}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
+      - m_Target: {fileID: 842007958}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
         m_MethodName: LoadTheFactoryLevel
         m_Mode: 1
         m_Arguments:
@@ -8205,7 +8205,7 @@ GameObject:
   - component: {fileID: 1281238050}
   - component: {fileID: 1281238049}
   m_Layer: 0
-  m_Name: MiddleLeaderboardText
+  m_Name: MidScreenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10721,8 +10721,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 596014501}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
+      - m_Target: {fileID: 842007958}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
         m_MethodName: LoadIntroLevel
         m_Mode: 1
         m_Arguments:

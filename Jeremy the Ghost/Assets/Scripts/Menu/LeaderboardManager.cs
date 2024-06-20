@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using TMPro;
 using Dan.Main;
@@ -25,26 +26,28 @@ public class LeaderboardManager : MonoBehaviour
     /// </summary>
     public void GetLeaderboard(LevelSectionDescription sectionDescription)
     {
+        ClearPreviousEntries();
         _middleScreenText.text = "Loading";
         _middleScreenText.enabled = true;
         LeaderboardCreator.GetLeaderboard(sectionDescription.LeaderboardPublicKey, 
             entries =>
-        {
-            _middleScreenText.enabled = false;
-            int loopLength = entries.Length < _names.Count ? entries.Length : _names.Count;
-            for (int i = 0; i < loopLength; ++i)
             {
-                _ranks[i].text = entries[i].Rank.ToString();
-                _names[i].text = entries[i].Username;
-                _movesToFinish[i].text = entries[i].Score.ToString();
-                
-                // Get the date in correct format
-                var entryDate = DateTimeOffset.FromUnixTimeSeconds((long)entries[i].Date)
-                    .ToLocalTime()
-                    .Date;
-                _dates[i].text = $"{entryDate.Day}.{entryDate.Month}.{entryDate.Year}";
-            }
-        },
+                entries = entries.Reverse().ToArray();
+                _middleScreenText.enabled = false;
+                int loopLength = entries.Length < _names.Count ? entries.Length : _names.Count;
+                for (int i = 0; i < loopLength; ++i)
+                {
+                    _ranks[i].text = (i+1).ToString();
+                    _names[i].text = entries[i].Username;
+                    _movesToFinish[i].text = entries[i].Score.ToString();
+                    
+                    // Get the date in correct format
+                    var entryDate = DateTimeOffset.FromUnixTimeSeconds((long)entries[i].Date)
+                        .ToLocalTime()
+                        .Date;
+                    _dates[i].text = $"{entryDate.Day}.{entryDate.Month}.{entryDate.Year}";
+                } 
+            },
         _ =>
         {
             _middleScreenText.enabled = true;
@@ -52,12 +55,24 @@ public class LeaderboardManager : MonoBehaviour
         });
     }
 
+    private void ClearPreviousEntries()
+    {
+        for (int i = 0; i < _ranks.Count; ++i)
+        {
+            _ranks[i].text = "";
+            _names[i].text = "";
+            _movesToFinish[i].text = "";
+            _dates[i].text = "";
+        }
+    }
+
     /// <summary>
     /// Sets an entry into the leaderboard of a level section.
     /// </summary>
-    public static void SetEntry(LevelSectionDescription sectionDescription, string playerName, int movesToFinish)
+    public static void SetEntry(LevelSectionDescription sectionDescription, int movesToFinish)
     {
-            LeaderboardCreator.UploadNewEntry(sectionDescription.LeaderboardPublicKey, playerName, movesToFinish);
+            LeaderboardCreator.UploadNewEntry(sectionDescription.LeaderboardPublicKey,
+                PlayerPrefs.GetString("Name"), movesToFinish);
     }
     
     /// <summary>

@@ -21,6 +21,7 @@ public class MoveManager : MonoBehaviour
         }
     }
     private int _availableMoves;
+    public int AvailableMoves => _availableMoves;
     
     // True -> The moves and Jeremy are reset after all moves used.
     // False -> Jeremy can move how many times he wants.

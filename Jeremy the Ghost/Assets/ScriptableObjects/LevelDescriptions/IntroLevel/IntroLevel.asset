@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: IntroLevel
   m_EditorClassIdentifier: 
   Name: Intro
+  Completed: 0
   LevelSections:
   - {fileID: 11400000, guid: 4efadbe88090a4c13a4db7b5a1b6061f, type: 2}

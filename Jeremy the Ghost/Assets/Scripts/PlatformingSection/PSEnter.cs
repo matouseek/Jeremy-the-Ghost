@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// This class serves as an entry point for the platforming sections.
@@ -12,7 +14,8 @@ public class PSEnter : MonoBehaviour
     [SerializeField] private Cinemachine.CinemachineVirtualCamera _previousCamera;
     [SerializeField] private Cinemachine.CinemachineVirtualCamera _newCamera;
     [SerializeField] private int _maxPsMoves;
-    [SerializeField] private Transform newRespawn;
+    public int MaxPsMoves => _maxPsMoves;
+    [SerializeField] private Transform _newRespawn;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -20,7 +23,7 @@ public class PSEnter : MonoBehaviour
         _noGoingBackCollider.SetActive(true);
         MoveManager.Instance.MaxMoves = _maxPsMoves;
         MoveManager.Instance.EnableMoveCounter();
-        GameObject.Find("Jeremy").GetComponent<JeremyController>().PSRespawn = newRespawn;
+        GameObject.Find("Jeremy").GetComponent<JeremyController>().PSRespawn = _newRespawn;
         gameObject.SetActive(false);
     }
 }

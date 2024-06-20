@@ -139,8 +139,6 @@ public class JeremyController : MonoBehaviour
     {
         LevelManager.Instance.CompleteLevel();
         MenuManager.ShowPlayMenuOnLoad = true;
-        LeaderboardManager.SetEntry(LevelManager.Instance.CurrentlyPlayedLevelSection,
-            PlayerPrefs.GetString("Name"), 10);
         SceneManager.LoadScene("Menu");
     }
 
