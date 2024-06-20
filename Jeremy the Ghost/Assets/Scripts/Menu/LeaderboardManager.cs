@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -7,8 +8,8 @@ public class LeaderboardManager : MonoBehaviour
 {
     [SerializeField] private GameObject _nameInput;
     [SerializeField] private GameObject _leaderboard;
-    [SerializeField] private TMP_Dropdown _levelSelection;
-    [SerializeField] private TMP_Dropdown _sectionSelection;
+    [SerializeField] private TMP_Dropdown _levelSelectionDropdown;
+    [SerializeField] private TMP_Dropdown _sectionSelectionDropdown;
     
     // All the columns of the leaderboard
     [SerializeField] private List<TextMeshProUGUI> _ranks;
@@ -17,8 +18,9 @@ public class LeaderboardManager : MonoBehaviour
     [SerializeField] private List<TextMeshProUGUI> _dates;
 
     private void Start()
-    {
-       GetLeaderboard(LevelManager.Levels[0].LevelSections[0]);
+    { 
+        SelectLevel();
+        GetLeaderboard(LevelManager.Instance.Levels[0].LevelSections[0]);
     }
 
     /// <summary>
@@ -34,7 +36,12 @@ public class LeaderboardManager : MonoBehaviour
                 _ranks[i].text = entries[i].Rank.ToString();
                 _names[i].text = entries[i].Username;
                 _movesToFinish[i].text = entries[i].Score.ToString();
-                _dates[i].text = entries[i].Date.ToString();
+                
+                // Get the date in correct format
+                var entryDate = DateTimeOffset.FromUnixTimeSeconds((long)entries[i].Date)
+                    .ToLocalTime()
+                    .Date;
+                _dates[i].text = $"{entryDate.Day}.{entryDate.Month}.{entryDate.Year}";
             }
         });
     }
@@ -78,12 +85,20 @@ public class LeaderboardManager : MonoBehaviour
     /// </summary>
     public void SelectLevel()
     {
-        _sectionSelection.ClearOptions();
-        foreach (var section in LevelManager.Levels[_levelSelection.value].LevelSections)
+        _sectionSelectionDropdown.ClearOptions();
+        foreach (var section in LevelManager.Instance.Levels[_levelSelectionDropdown.value].LevelSections)
         {
-            _sectionSelection.options.Add(new TMP_Dropdown.OptionData(section.Name));
+            _sectionSelectionDropdown.options.Add(new TMP_Dropdown.OptionData(section.Name));
         }
+        _sectionSelectionDropdown.RefreshShownValue();
+        SelectLevelSection();
+    }
 
-        _sectionSelection.RefreshShownValue();
+    public void SelectLevelSection()
+    {
+        GetLeaderboard(LevelManager
+            .Instance
+            .Levels[_levelSelectionDropdown.value]
+            .LevelSections[_sectionSelectionDropdown.value]);
     }
 }

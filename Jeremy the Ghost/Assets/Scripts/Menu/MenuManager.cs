@@ -16,7 +16,7 @@ public class MenuManager : MonoBehaviour
     private GameObject _currentMenu;
 
     // ---------- Level selection ----------
-    [SerializeField] private GameObject[] _levelSelectionButtons = new GameObject[LevelManager.Levels.Count];
+    [SerializeField] private List<GameObject> _levelSelectionButtons;
 
     // This is set from the JeremyController after finishing a level
     // so that the player is loaded immediately into the level selection
@@ -26,7 +26,7 @@ public class MenuManager : MonoBehaviour
     // ---------- Leaderboard ----------
     [SerializeField] private LeaderboardManager _leaderboardManager;
 
-private void Awake()
+    private void Awake()
     {
         _currentMenu = _mainMenu;
         if(ShowPlayMenuOnLoad) Play(); // Do the same thing as clicking on the Play button
@@ -66,9 +66,9 @@ private void Awake()
     /// </summary>
     private void ShowPlayableLevels()
     {
-        for(int i = 0; i < LevelManager.Levels.Count; ++i)
+        for(int i = 0; i < LevelManager.Instance.Levels.Count; ++i)
         {
-            if (!LevelManager.Levels[i].Completed) continue;
+            if (!LevelManager.Instance.Levels[i].Completed) continue;
             _levelSelectionButtons[i].SetActive(true);
         }
     }
