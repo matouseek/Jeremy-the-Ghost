@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924a8fc4fcc5b43909e687f5313e0a37, type: 3}
+  m_Name: TheFactory
+  m_EditorClassIdentifier: 
+  Name: The Factory
+  LevelSections:
+  - {fileID: 11400000, guid: 7b4d6365c48764009a4e77b21e289294, type: 2}
+  - {fileID: 11400000, guid: 755247cf14b104657a76b900747c500d, type: 2}
