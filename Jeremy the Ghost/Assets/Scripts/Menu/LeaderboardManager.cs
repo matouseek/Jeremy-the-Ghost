@@ -16,20 +16,21 @@ public class LeaderboardManager : MonoBehaviour
     [SerializeField] private List<TextMeshProUGUI> _names;
     [SerializeField] private List<TextMeshProUGUI> _movesToFinish;
     [SerializeField] private List<TextMeshProUGUI> _dates;
-
-    private void Start()
-    { 
-        SelectLevel();
-        GetLeaderboard(LevelManager.Instance.Levels[0].LevelSections[0]);
-    }
+    
+    // Middle of the screen text for loading msg and error msgs
+    [SerializeField] private TextMeshProUGUI _middleScreenText;
 
     /// <summary>
     /// Fetches the data of the wanted level section and fills the leaderboard with them. 
     /// </summary>
     public void GetLeaderboard(LevelSectionDescription sectionDescription)
     {
-        LeaderboardCreator.GetLeaderboard(sectionDescription.LeaderboardPublicKey, (entries) =>
+        _middleScreenText.text = "Loading";
+        _middleScreenText.enabled = true;
+        LeaderboardCreator.GetLeaderboard(sectionDescription.LeaderboardPublicKey, 
+            entries =>
         {
+            _middleScreenText.enabled = false;
             int loopLength = entries.Length < _names.Count ? entries.Length : _names.Count;
             for (int i = 0; i < loopLength; ++i)
             {
@@ -43,6 +44,11 @@ public class LeaderboardManager : MonoBehaviour
                     .Date;
                 _dates[i].text = $"{entryDate.Day}.{entryDate.Month}.{entryDate.Year}";
             }
+        },
+        _ =>
+        {
+            _middleScreenText.enabled = true;
+            _middleScreenText.text = "Error loading leaderboard";
         });
     }
 
@@ -68,6 +74,7 @@ public class LeaderboardManager : MonoBehaviour
         }
         
         _leaderboard.SetActive(true);
+        SelectLevel();
     }
     
     /// <summary>
@@ -77,7 +84,7 @@ public class LeaderboardManager : MonoBehaviour
     {
         PlayerPrefs.SetString("Name", _nameInput.GetComponentInChildren<TMP_InputField>().text);
         _nameInput.SetActive(false);
-        _leaderboard.SetActive(true);
+        ShowLeaderboard();
     }
     
     /// <summary>
