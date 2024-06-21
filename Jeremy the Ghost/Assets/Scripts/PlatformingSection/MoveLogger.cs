@@ -8,7 +8,6 @@ public class MoveLogger : MonoBehaviour
     public void LogUsedMoves()
     {
         int movesUsed = _psEnter.MaxPsMoves - MoveManager.Instance.AvailableMoves;
-        Debug.Log($"{_levelSectionDescription.Name} {movesUsed}");
         LeaderboardManager.SetEntry(_levelSectionDescription, movesUsed);
     }
 }

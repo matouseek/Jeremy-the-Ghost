@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 /// <summary>
@@ -17,6 +16,7 @@ public class MenuManager : MonoBehaviour
 
     // ---------- Level selection ----------
     [SerializeField] private List<GameObject> _levelSelectionButtons;
+    [SerializeField] private GameObject _nameInput;
 
     // This is set from the JeremyController after finishing a level
     // so that the player is loaded immediately into the level selection
@@ -38,8 +38,17 @@ public class MenuManager : MonoBehaviour
     public void Play()
     {
         _mainMenu.SetActive(false);
-        _playMenu.SetActive(true);
+        
+        // The first time a player visits the level selection
+        // he is tasked with selecting a name
+        if (!PlayerPrefs.HasKey("Name"))
+        {
+            _currentMenu = _nameInput;
+            _nameInput.SetActive(true);
+            return;
+        }
         _currentMenu = _playMenu;
+        _playMenu.SetActive(true);
         ShowPlayableLevels();
     }
 
@@ -84,6 +93,16 @@ public class MenuManager : MonoBehaviour
         _currentMenu = _leaderboardMenu;
         
         _leaderboardManager.ShowLeaderboard();
+    }
+    
+    /// <summary>
+    /// OnClick function for Submit button in PlayMenu
+    /// </summary>
+    public void SubmitName()
+    {
+        PlayerPrefs.SetString("Name", _nameInput.GetComponentInChildren<TMP_InputField>().text);
+        _nameInput.SetActive(false);
+        Play(); // Show play menu
     }
 
     /// <summary>

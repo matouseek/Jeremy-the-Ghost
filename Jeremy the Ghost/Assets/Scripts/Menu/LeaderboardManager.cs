@@ -7,7 +7,6 @@ using Dan.Main;
 
 public class LeaderboardManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _nameInput;
     [SerializeField] private GameObject _leaderboard;
     [SerializeField] private TMP_Dropdown _levelSelectionDropdown;
     [SerializeField] private TMP_Dropdown _sectionSelectionDropdown;
@@ -71,6 +70,13 @@ public class LeaderboardManager : MonoBehaviour
     /// </summary>
     public static void SetEntry(LevelSectionDescription sectionDescription, int movesToFinish)
     {
+        LeaderboardCreator.GetPersonalEntry(sectionDescription.LeaderboardPublicKey, 
+            entry =>
+            {
+                if (entry.Rank == 0 && entry.Score == 0) return; // Player has not set an entry
+                if (movesToFinish >= entry.Score) return; // Player has not beat their PB
+                LeaderboardCreator.DeleteEntry(sectionDescription.LeaderboardPublicKey);
+            });
             LeaderboardCreator.UploadNewEntry(sectionDescription.LeaderboardPublicKey,
                 PlayerPrefs.GetString("Name"), movesToFinish);
     }
@@ -80,26 +86,8 @@ public class LeaderboardManager : MonoBehaviour
     /// </summary>
     public void ShowLeaderboard()
     {
-        // The first time a player visits the leaderboard
-        // he is tasked with selecting a name
-        if (!PlayerPrefs.HasKey("Name"))
-        {
-            _nameInput.SetActive(true);
-            return;
-        }
-        
         _leaderboard.SetActive(true);
         SelectLevel();
-    }
-    
-    /// <summary>
-    /// OnClick function for Submit button in Leaderboard
-    /// </summary>
-    public void SubmitName()
-    {
-        PlayerPrefs.SetString("Name", _nameInput.GetComponentInChildren<TMP_InputField>().text);
-        _nameInput.SetActive(false);
-        ShowLeaderboard();
     }
     
     /// <summary>
