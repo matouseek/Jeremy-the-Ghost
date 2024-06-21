@@ -5,9 +5,10 @@ public class MoveLogger : MonoBehaviour
     [SerializeField] private PSEnter _psEnter;
     [SerializeField] private LevelSectionDescription _levelSectionDescription;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void LogUsedMoves()
     {
         int movesUsed = _psEnter.MaxPsMoves - MoveManager.Instance.AvailableMoves;
+        Debug.Log($"{_levelSectionDescription.Name} {movesUsed}");
         LeaderboardManager.SetEntry(_levelSectionDescription, movesUsed);
     }
 }

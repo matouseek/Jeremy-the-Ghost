@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// This class serves as an entry point for the platforming sections.
@@ -16,9 +15,12 @@ public class PSEnter : MonoBehaviour
     [SerializeField] private int _maxPsMoves;
     public int MaxPsMoves => _maxPsMoves;
     [SerializeField] private Transform _newRespawn;
+    
+    [SerializeField] private MoveLogger _previousPsMoveLogger;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        _previousPsMoveLogger?.LogUsedMoves();
         CameraHelper.SwapCameraPriority(_previousCamera, _newCamera);
         _noGoingBackCollider.SetActive(true);
         MoveManager.Instance.MaxMoves = _maxPsMoves;

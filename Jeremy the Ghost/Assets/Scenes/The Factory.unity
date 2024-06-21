@@ -2836,9 +2836,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 770147688}
     - target: {fileID: 3521115362469165730, guid: 8c21bcf3a1d8443598078af6e96ba5a0, type: 3}
+      propertyPath: _moveLogger
+      value: 
+      objectReference: {fileID: 854278383}
+    - target: {fileID: 3521115362469165730, guid: 8c21bcf3a1d8443598078af6e96ba5a0, type: 3}
       propertyPath: _previousCamera
       value: 
       objectReference: {fileID: 1374054231}
+    - target: {fileID: 3521115362469165730, guid: 8c21bcf3a1d8443598078af6e96ba5a0, type: 3}
+      propertyPath: _previousPsMoveLogger
+      value: 
+      objectReference: {fileID: 854278383}
     - target: {fileID: 4689466623120625174, guid: 8c21bcf3a1d8443598078af6e96ba5a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 93.4
@@ -3642,6 +3650,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
+--- !u!114 &854278383 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7672173457405319717, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
+  m_PrefabInstance: {fileID: 1126265752}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7286b22fc121d4e22b107b71d4f54ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &870669716 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7672173457405319717, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
+  m_PrefabInstance: {fileID: 814445421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7286b22fc121d4e22b107b71d4f54ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &875696934
 GameObject:
   m_ObjectHideFlags: 0
@@ -4371,9 +4401,17 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1244174310005835472, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
+      propertyPath: _moveLogger
+      value: 
+      objectReference: {fileID: 870669716}
+    - target: {fileID: 1244174310005835472, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
       propertyPath: _previousCamera
       value: 
       objectReference: {fileID: 247574995}
+    - target: {fileID: 1244174310005835472, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
+      propertyPath: _previousPsMoveLogger
+      value: 
+      objectReference: {fileID: 870669716}
     - target: {fileID: 1277350600327730594, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 53.71086

@@ -4242,6 +4242,10 @@ PrefabInstance:
       propertyPath: _previousCamera
       value: 
       objectReference: {fileID: 2070137006}
+    - target: {fileID: 3521115362469165730, guid: 8c21bcf3a1d8443598078af6e96ba5a0, type: 3}
+      propertyPath: _previousPsMoveLogger
+      value: 
+      objectReference: {fileID: 7699465905233484789}
     - target: {fileID: 4689466623120625174, guid: 8c21bcf3a1d8443598078af6e96ba5a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 53.71086
@@ -4663,6 +4667,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
+--- !u!114 &7699465905233484789 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7672173457405319717, guid: 92fc84b7d8a3042a4b391fc6a697d7f7, type: 3}
+  m_PrefabInstance: {fileID: 7699465905233484788}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7286b22fc121d4e22b107b71d4f54ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

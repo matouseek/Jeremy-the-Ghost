@@ -9,7 +9,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private List<LevelDescription> _levels;
     public List<LevelDescription> Levels => _levels;
     public LevelDescription CurrentlyPlayedLevel { get; private set; } = null;
-    public LevelSectionDescription CurrentlyPlayedLevelSection { get; private set; } = null;
 
     private void Awake() 
     {
