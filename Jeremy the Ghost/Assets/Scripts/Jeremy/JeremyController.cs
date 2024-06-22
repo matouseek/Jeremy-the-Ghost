@@ -137,7 +137,7 @@ public class JeremyController : MonoBehaviour
 
     private void FinishLevel()
     {
-        LevelManager.Instance.CompleteLevel();
+        LevelManager.CompleteLevel();
         MenuManager.ShowPlayMenuOnLoad = true;
         SceneManager.LoadScene("Menu");
     }

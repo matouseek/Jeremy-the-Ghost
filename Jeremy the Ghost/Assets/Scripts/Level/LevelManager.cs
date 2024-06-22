@@ -21,11 +21,6 @@ public class LevelManager : MonoBehaviour
             Instance = this; 
         } 
     }
-
-    private void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
     
     /// <summary>
     /// OnClick function for Intro Level button in PlayMenu
@@ -53,9 +48,9 @@ public class LevelManager : MonoBehaviour
     /// Marks the next level in the game as playable to the player. This is done by setting
     /// a value 1 to the level name in player preferences.
     /// </summary>
-    public void CompleteLevel()
+    public static void CompleteLevel()
     {
-        if (Levels.IndexOf(CurrentlyPlayedLevel) == Levels.Count - 1) return; // No new level will show after the last one
-        CurrentlyPlayedLevel.Completed = true;
+        if (Instance.Levels.IndexOf(Instance.CurrentlyPlayedLevel) == Instance.Levels.Count - 1) return; // No new level will show after the last one
+        Instance.CurrentlyPlayedLevel.Completed = true;
     }
 }
