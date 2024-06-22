@@ -73,12 +73,24 @@ public class LeaderboardManager : MonoBehaviour
         LeaderboardCreator.GetPersonalEntry(sectionDescription.LeaderboardPublicKey, 
             entry =>
             {
-                if (entry.Rank == 0 && entry.Score == 0) return; // Player has not set an entry
-                if (movesToFinish >= entry.Score) return; // Player has not beat their PB
-                LeaderboardCreator.DeleteEntry(sectionDescription.LeaderboardPublicKey);
+                if (entry.Rank == 0 && entry.Score == 0) // Player has not set an entry
+                {
+                    Debug.Log("first entry");
+                    // Set his first entry
+                    LeaderboardCreator.UploadNewEntry(sectionDescription.LeaderboardPublicKey,
+                        PlayerPrefs.GetString("Name"), movesToFinish);
+                }
+                else if (movesToFinish < entry.Score) // Player has beaten their PB
+                {
+                    Debug.Log("updated entry");
+                    // Remove previous entry and set a new one
+                    LeaderboardCreator.DeleteEntry(sectionDescription.LeaderboardPublicKey);
+                    LeaderboardCreator.UploadNewEntry(sectionDescription.LeaderboardPublicKey,
+                        PlayerPrefs.GetString("Name"), movesToFinish);
+                }
+                
+                // If player had an entry and hasn't beaten it, we don't want to do anything
             });
-            LeaderboardCreator.UploadNewEntry(sectionDescription.LeaderboardPublicKey,
-                PlayerPrefs.GetString("Name"), movesToFinish);
     }
     
     /// <summary>
