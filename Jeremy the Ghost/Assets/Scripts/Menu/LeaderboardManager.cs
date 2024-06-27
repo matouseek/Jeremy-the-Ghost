@@ -82,7 +82,7 @@ public class LeaderboardManager : MonoBehaviour
                 }
                 else if (movesToFinish < entry.Score) // Player has beaten their PB
                 {
-                    Debug.Log("updated entry");
+                    Debug.Log($"Update: {entry.Username} {movesToFinish}");
                     // Remove previous entry and set a new one
                     LeaderboardCreator.DeleteEntry(sectionDescription.LeaderboardPublicKey);
                     LeaderboardCreator.UploadNewEntry(sectionDescription.LeaderboardPublicKey,

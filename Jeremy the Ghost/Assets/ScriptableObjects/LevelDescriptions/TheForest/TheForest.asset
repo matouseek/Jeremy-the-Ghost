@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 924a8fc4fcc5b43909e687f5313e0a37, type: 3}
-  m_Name: IntroLevel
+  m_Name: TheForest
   m_EditorClassIdentifier: 
-  Name: Intro
-  Completed: 1
-  LevelSections:
-  - {fileID: 11400000, guid: 4efadbe88090a4c13a4db7b5a1b6061f, type: 2}
+  Name: The Forest
+  Completed: 0
+  LevelSections: []
