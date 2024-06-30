@@ -2,7 +2,14 @@ using UnityEngine;
 
 public class ThornBulletController : MonoBehaviour
 {
-    private float _flyingSpeed = 30f;
+    [SerializeField] private float _flyingSpeed = 30f;
+    private readonly string _jeremyTag = "Jeremy";
+    private Animator _animator;
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void FixedUpdate()
     {
@@ -11,8 +18,31 @@ public class ThornBulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //TODO reduce flying speed to 0
-        // start an animation to rot inside (change color/size) in whatever was hit
-        // if player was hit -> reset him
+        _flyingSpeed = 0;
+        if (other.CompareTag(_jeremyTag))
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Rot();
+        }
+    }
+
+    /// <summary>
+    /// Sets the bool that transitions the thorn into rotting animation.
+    /// </summary>
+    void Rot()
+    {
+        _animator.SetBool("Collided", true);
+    }
+
+    /// <summary>
+    /// Function for the animation event.
+    /// Gets called after one iteration of rot animation.
+    /// </summary>
+    void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }
