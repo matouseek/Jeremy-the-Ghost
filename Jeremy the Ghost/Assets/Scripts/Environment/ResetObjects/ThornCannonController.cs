@@ -8,13 +8,16 @@ public class ThornCannonController : MonoBehaviour
     [SerializeField] private float _timeToShoot; // This is the max value of _shootCountdown
     [SerializeField] private float _shootCountdown; // This decreases while aiming at the player
     private bool _playerInSight;
-
-    private float _halfSpriteHeight;
-
     [SerializeField] private GameObject _bulletObject;
+    [SerializeField] private Transform _parentForBullets;
+    
+    private float _halfSpriteHeight; // Used to offset raycast, so it fires from the top of cannon
+
+    private Animator _animator;
 
     private void Start()
     {
+        _animator = GetComponent<Animator>();
         _halfSpriteHeight = GetComponent<SpriteRenderer>().bounds.size.y / 2;
         _shootCountdown = _timeToShoot;
         _player = GameObject.FindGameObjectWithTag(_playerTag);
@@ -23,7 +26,7 @@ public class ThornCannonController : MonoBehaviour
     private void Update()
     {
         if (!DecreaseTimeToShoot()) return;
-        Shoot();
+        TransitionToShooting();
     }
 
     private void FixedUpdate()
@@ -40,16 +43,9 @@ public class ThornCannonController : MonoBehaviour
         
         RaycastHit2D hit = Physics2D.Raycast(originPos, dirToPlayer, _maxRange);
         _playerInSight = hit && hit.collider.tag.Equals(_playerTag); // The raycast hits something and
-        // that something is the player
-        
-        if (_playerInSight)
-        {
-            Debug.DrawRay(originPos, dirToPlayer, Color.red);
-        }
-        else
-        {
-            Debug.DrawRay(originPos, dirToPlayer, Color.green);
-        }
+                                                                        // that something is the player
+                                                                        
+        ShowRaycastGizmos(originPos, dirToPlayer);
     }
 
     
@@ -74,9 +70,36 @@ public class ThornCannonController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Called as an event from the shooting animation.
+    /// </summary>
     private void Shoot()
     {
-        //TODO: optional - do the cool rotate/flip animation when shooting
-        Instantiate(_bulletObject, transform.position, transform.rotation);
+        Instantiate(_bulletObject, transform.position, transform.rotation, _parentForBullets);
+    }
+
+    /// <summary>
+    /// Sets the bool that transitions the animation to shooting.
+    /// </summary>
+    private void TransitionToShooting()
+    {
+        _animator.SetBool("Firing", true);
+    }
+
+    /// <summary>
+    /// Called as an event at the end of shooting animation.
+    /// </summary>
+    private void TransitionToIdle()
+    {
+        _animator.SetBool("Firing", false);
+    }
+
+    /// <summary>
+    /// Debugging function that shows the raycast of the cannon.
+    /// Color is based on the player being in/out of cannon range.
+    /// </summary>
+    private void ShowRaycastGizmos(Vector2 originPos, Vector2 dirToPlayer)
+    {
+        Debug.DrawRay(originPos, dirToPlayer, _playerInSight ? Color.red : Color.green);
     }
 }
