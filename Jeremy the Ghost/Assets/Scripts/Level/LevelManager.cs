@@ -38,6 +38,14 @@ public class LevelManager : MonoBehaviour
         LoadLevel(Levels[1]);
     }
     
+    /// <summary>
+    /// OnClick function for The Forest button in PlayMenu
+    /// </summary>
+    public void LoadTheForestLevel()
+    {
+        LoadLevel(Levels[2]);
+    }
+    
     private void LoadLevel(LevelDescription level)
     {
         CurrentlyPlayedLevel = level;

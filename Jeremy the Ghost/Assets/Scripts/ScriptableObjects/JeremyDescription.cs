@@ -8,4 +8,5 @@ using UnityEngine;
 public class JeremyDescription : ScriptableObject
 {
     public Color Color;
+    public Sprite Eyes;
 }
