@@ -12,6 +12,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _playMenu;
     [SerializeField] private GameObject _leaderboardMenu;
+    [SerializeField] private GameObject _customizationMenu;
     private GameObject _currentMenu;
 
     // ---------- Level selection ----------
@@ -93,6 +94,13 @@ public class MenuManager : MonoBehaviour
         _currentMenu = _leaderboardMenu;
         
         _leaderboardManager.ShowLeaderboard();
+    }
+
+    public void ShowCustomization()
+    {
+        _mainMenu.SetActive(false);
+        _customizationMenu.SetActive(true);
+        _currentMenu = _customizationMenu;
     }
     
     /// <summary>
