@@ -17,6 +17,8 @@ public class JeremyController : MonoBehaviour
         
     public Transform PSRespawn;
 
+    [SerializeField] private JeremyDescription _jeremyDescription;
+
     // ---------- Scaring Children ----------
     public bool CanScare { get; set; }
     [SerializeField] private AudioClip _breatheAudioClip;
@@ -30,6 +32,7 @@ public class JeremyController : MonoBehaviour
 
     private void Start()
     {
+        gameObject.GetComponentInChildren<SpriteRenderer>().color = _jeremyDescription.Color;
         _audioSource = gameObject.GetComponent<AudioSource>();
     }
 
