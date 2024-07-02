@@ -13,12 +13,20 @@ public class CustomizationManager : MonoBehaviour
     [SerializeField] private int _selectedEyesIndex; //todo: deserialize
     [SerializeField] private Image _eyesUIImage;
 
+    [SerializeField] private GameObject _eyeChangeButtonRight;
+    [SerializeField] private GameObject _eyeChangeButtonLeft;
+
     private void Start()
     {
         LoadCollectedEyes();
+        
+        if (_eyes.Count > 1) // At least one eye skin other than default is acquired
+        { ShowEyeChangeButtons(); }
+        
         _fcp.color = _jeremyDescription.Color;
         _selectedEyesIndex = _jeremyDescription.Eyes == null ? 0 : _eyes.IndexOf(_jeremyDescription.Eyes);
-        ShowEyes();
+        
+        SelectAndShowEyes();
     }
 
     /// <summary>
@@ -40,7 +48,7 @@ public class CustomizationManager : MonoBehaviour
         }
     }
 
-    private void ShowEyes()
+    private void SelectAndShowEyes()
     {
         _eyesUIImage.color = new(_eyesUIImage.color.r
             , _eyesUIImage.color.g
@@ -48,5 +56,27 @@ public class CustomizationManager : MonoBehaviour
             , _selectedEyesIndex == 0 ? 0 : 1); // If we don't have any sprite selected (index == 0)
                                                   // then we turn alpha down to 0
         _eyesUIImage.sprite = _eyes[_selectedEyesIndex];
+        _jeremyDescription.Eyes = _eyes[_selectedEyesIndex];
+    }
+
+    private void ShowEyeChangeButtons()
+    {
+        _eyeChangeButtonLeft.SetActive(true);
+        _eyeChangeButtonRight.SetActive(true);
+    }
+
+    public void ChangeEyesRight()
+    {
+        _selectedEyesIndex = (++_selectedEyesIndex) % _eyes.Count;
+        SelectAndShowEyes();
+    }
+
+    public void ChangeEyesLeft()
+    {
+        if (--_selectedEyesIndex < 0)
+        {
+            _selectedEyesIndex = _eyes.Count - 1;
+        }
+        SelectAndShowEyes();
     }
 }

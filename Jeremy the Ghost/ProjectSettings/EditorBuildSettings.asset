@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/The Factory.unity
     guid: 14583d545477543ba9f6d36d194fb3b4
+  - enabled: 1
+    path: Assets/Scenes/TheForest.unity
+    guid: 76a14c97755b34480920161e18da28dc
   m_configObjects: {}

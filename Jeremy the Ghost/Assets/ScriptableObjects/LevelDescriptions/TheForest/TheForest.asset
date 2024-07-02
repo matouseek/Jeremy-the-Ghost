@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 924a8fc4fcc5b43909e687f5313e0a37, type: 3}
   m_Name: TheForest
   m_EditorClassIdentifier: 
-  Name: The Forest
-  Completed: 1
+  Name: TheForest
+  Completed: 0
   LevelSections: []
