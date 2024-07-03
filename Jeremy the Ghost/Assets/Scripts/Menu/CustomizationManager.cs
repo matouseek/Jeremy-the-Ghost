@@ -5,14 +5,12 @@ using UnityEngine.UI;
 /// <summary>
 /// Handles the actions in customization menu.
 /// </summary>
-//TODO: document what this class is doing, mainly the eyes swapping
-//because it may seem confusing as to whats going on
 public class CustomizationManager : MonoBehaviour
 {
     [SerializeField] private Image _jeremyUIImage;
     [SerializeField] private FlexibleColorPicker _fcp;
     [SerializeField] private JeremyDescription _jeremyDescription;
-    private List<Sprite> _collectedEyes; // All eyes that the player collected
+    [SerializeField] private List<Sprite> _collectedEyes; // All eyes that the player collected
                                          // at index 0 is a null value resembling no eye sprite
     private int _selectedEyesIndex; // Currently selected eyes
     [SerializeField] private Image _eyesUIImage; // Image of currently selected eyes
