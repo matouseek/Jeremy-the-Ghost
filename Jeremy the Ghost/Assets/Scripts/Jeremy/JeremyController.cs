@@ -41,6 +41,7 @@ public class JeremyController : MonoBehaviour
 
     void Update()
     {
+        if (PauseMenuManager.Instance.Paused) return;
         TryScareChildren();
         ResolveMoveInput();
         ResolveDownDashInput();
