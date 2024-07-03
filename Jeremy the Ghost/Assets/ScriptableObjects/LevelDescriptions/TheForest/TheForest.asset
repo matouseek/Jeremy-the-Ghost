@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TheForest
   m_EditorClassIdentifier: 
   Name: TheForest
-  Completed: 0
+  Completed: 1
   LevelSections: []

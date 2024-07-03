@@ -16,7 +16,20 @@ public class CustomizationManager : MonoBehaviour
     [SerializeField] private GameObject _eyeChangeButtonRight;
     [SerializeField] private GameObject _eyeChangeButtonLeft;
 
-    private void Start()
+    [SerializeField] private bool _changeColor = false; //todo: deserialize
+
+    private void OnEnable()
+    {
+        _changeColor = true;
+        OnColorChange(_fcp.color);
+    }
+
+    private void OnDisable()
+    {
+        _changeColor = false;
+    }
+
+    private void Awake()
     {
         LoadCollectedEyes();
         
@@ -32,10 +45,11 @@ public class CustomizationManager : MonoBehaviour
     /// <summary>
     /// Called when color changes in the color picker in the Customization menu.
     /// </summary>
-    public void OnColorChange()
+    public void OnColorChange(Color color)
     {
-        _jeremyUIImage.color = _fcp.color;
-        _jeremyDescription.Color = _fcp.color; // Save color change
+        if (!_changeColor) return;
+        _jeremyUIImage.color = color;
+        _jeremyDescription.Color = color; // Save color change
     }
 
     private void LoadCollectedEyes()

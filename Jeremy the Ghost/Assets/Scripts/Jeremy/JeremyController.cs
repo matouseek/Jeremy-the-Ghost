@@ -17,7 +17,9 @@ public class JeremyController : MonoBehaviour
         
     public Transform PSRespawn;
 
+    // ----------Customization ----------
     [SerializeField] private JeremyDescription _jeremyDescription;
+    [SerializeField] private SpriteRenderer _eyes;
 
     // ---------- Scaring Children ----------
     public bool CanScare { get; set; }
@@ -32,6 +34,7 @@ public class JeremyController : MonoBehaviour
 
     private void Start()
     {
+        _eyes.sprite = _jeremyDescription.Eyes;
         gameObject.GetComponentInChildren<SpriteRenderer>().color = _jeremyDescription.Color;
         _audioSource = gameObject.GetComponent<AudioSource>();
     }

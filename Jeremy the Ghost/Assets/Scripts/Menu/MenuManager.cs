@@ -96,6 +96,9 @@ public class MenuManager : MonoBehaviour
         _leaderboardManager.ShowLeaderboard();
     }
 
+    /// <summary>
+    /// OnClick function for Customization button in MainMenu
+    /// </summary>
     public void ShowCustomization()
     {
         _mainMenu.SetActive(false);
