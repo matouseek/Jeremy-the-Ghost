@@ -7,6 +7,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewJeremyDescription", menuName = "JeremyDescription")]
 public class JeremyDescription : ScriptableObject
 {
-    public Color Color;
-    public Sprite Eyes;
+    public Color Color; // Can be set from the customization menu.
+    public Sprite Eyes; // Are awarded from achievements
 }
