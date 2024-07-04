@@ -53,8 +53,7 @@ public class LevelManager : MonoBehaviour
     }
     
     /// <summary>
-    /// Marks the next level in the game as playable to the player. This is done by setting
-    /// a value 1 to the level name in player preferences.
+    /// Marks the currently played level as completed in the levels scriptable object.
     /// </summary>
     public static void CompleteLevel()
     {

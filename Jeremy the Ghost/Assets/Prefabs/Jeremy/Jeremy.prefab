@@ -230,6 +230,7 @@ MonoBehaviour:
   _angryJeremySprite: {fileID: 21300000, guid: 98d2a59f668014d808489bfcebc597df, type: 3}
   _normalJeremySprite: {fileID: 21300000, guid: 107f18b9a6261459eb9137bb0274fe61, type: 3}
   _cantScareChildrenTextBox: {fileID: 5613730443179957504}
+  _10DeathsAchievement: {fileID: 11400000, guid: 3cc3a2e5240c045b0b49590e679f4b12, type: 2}
 --- !u!82 &2179732154635372489
 AudioSource:
   m_ObjectHideFlags: 0

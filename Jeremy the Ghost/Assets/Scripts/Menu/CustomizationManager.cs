@@ -10,8 +10,7 @@ public class CustomizationManager : MonoBehaviour
     [SerializeField] private Image _jeremyUIImage;
     [SerializeField] private FlexibleColorPicker _fcp;
     [SerializeField] private JeremyDescription _jeremyDescription;
-    [SerializeField] private List<Sprite> _collectedEyes; // All eyes that the player collected
-                                         // at index 0 is a null value resembling no eye sprite
+    [SerializeField] private Inventory _inventory;
     private int _selectedEyesIndex; // Currently selected eyes
     [SerializeField] private Image _eyesUIImage; // Image of currently selected eyes
 
@@ -40,14 +39,12 @@ public class CustomizationManager : MonoBehaviour
 
     private void Awake()
     {
-        LoadCollectedEyes();
-        
-        if (_collectedEyes.Count > 1) // At least one eye skin other than default (null) is acquired
+        if (_inventory.Eyes.Count > 1) // At least one eye skin other than default (null) is acquired
         { ShowEyeChangeButtons(); }
         
         // Set the correct data to the color picker + eye selector
         _fcp.color = _jeremyDescription.Color;
-        _selectedEyesIndex = _jeremyDescription.Eyes == null ? 0 : _collectedEyes.IndexOf(_jeremyDescription.Eyes);
+        _selectedEyesIndex = _jeremyDescription.Eyes == null ? 0 : _inventory.Eyes.IndexOf(_jeremyDescription.Eyes);
         
         ShowEyes();
     }
@@ -63,19 +60,6 @@ public class CustomizationManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Loads all the eye sprites the player has collected.
-    /// </summary>
-    private void LoadCollectedEyes()
-    {
-        _collectedEyes.Add(null); // The sprite is no sprite - default eyes
-        for(int i = 1; i < LevelManager.Instance.Levels.Count; ++i)
-        {
-            if (!LevelManager.Instance.Levels[i].Completed) continue;
-            _collectedEyes.Add(Resources.Load<Sprite>($"eyes_{i}"));
-        }
-    }
-
-    /// <summary>
     /// Shows the eyes at the _selectedEyesIndex.
     /// </summary>
     private void ShowEyes()
@@ -85,8 +69,8 @@ public class CustomizationManager : MonoBehaviour
             , _eyesUIImage.color.b
             , _selectedEyesIndex == 0 ? 0 : 1); // If we don't have any sprite selected (index == 0)
                                                   // then we turn alpha down to 0 (otherwise a white block will be shown)
-        _eyesUIImage.sprite = _collectedEyes[_selectedEyesIndex];
-        _jeremyDescription.Eyes = _collectedEyes[_selectedEyesIndex];
+        _eyesUIImage.sprite = _inventory.Eyes[_selectedEyesIndex];
+        _jeremyDescription.Eyes = _inventory.Eyes[_selectedEyesIndex];
     }
 
     /// <summary>
@@ -104,7 +88,7 @@ public class CustomizationManager : MonoBehaviour
     /// </summary>
     public void ChangeEyesRight()
     {
-        _selectedEyesIndex = (++_selectedEyesIndex) % _collectedEyes.Count;
+        _selectedEyesIndex = (++_selectedEyesIndex) % _inventory.Eyes.Count;
         ShowEyes();
     }
 
@@ -115,7 +99,7 @@ public class CustomizationManager : MonoBehaviour
     {
         if (--_selectedEyesIndex < 0)
         {
-            _selectedEyesIndex = _collectedEyes.Count - 1;
+            _selectedEyesIndex = _inventory.Eyes.Count - 1;
         }
         ShowEyes();
     }

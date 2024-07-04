@@ -22,7 +22,6 @@ public class PauseMenuManager : MonoBehaviour
     private void Update()
     {
         TryPauseOrUnpause();
-        
     }
 
     /// <summary>

@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 924a8fc4fcc5b43909e687f5313e0a37, type: 3}
-  m_Name: IntroLevel
+  m_Script: {fileID: 11500000, guid: bd30091c269df48f48b1382df2ada202, type: 3}
+  m_Name: TheForestFinished
   m_EditorClassIdentifier: 
-  Name: Intro
+  Name: Biggest fan of nature
+  Description: Finish The Forest level.
+  EyeRewardSprite: {fileID: 0}
+  _inventory: {fileID: 11400000, guid: a939460896e6a42e494a161a8ed2eb35, type: 2}
   _completed: 0
-  LevelSections:
-  - {fileID: 11400000, guid: 4efadbe88090a4c13a4db7b5a1b6061f, type: 2}
-  LevelCompletedAchievement: {fileID: 11400000, guid: b7b27bd3a8ff543b690203060404c56e, type: 2}

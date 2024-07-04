@@ -13,6 +13,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject _playMenu;
     [SerializeField] private GameObject _leaderboardMenu;
     [SerializeField] private GameObject _customizationMenu;
+    [SerializeField] private GameObject _achievementsMenu;
     private GameObject _currentMenu;
 
     // ---------- Level selection ----------
@@ -89,9 +90,7 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     public void ShowLeaderboard()
     {
-        _mainMenu.SetActive(false);
-        _leaderboardMenu.SetActive(true);
-        _currentMenu = _leaderboardMenu;
+        ShowSubmenu(_leaderboardMenu);
         
         _leaderboardManager.ShowLeaderboard();
     }
@@ -101,9 +100,7 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     public void ShowCustomization()
     {
-        _mainMenu.SetActive(false);
-        _customizationMenu.SetActive(true);
-        _currentMenu = _customizationMenu;
+        ShowSubmenu(_customizationMenu);
     }
     
     /// <summary>
@@ -114,6 +111,26 @@ public class MenuManager : MonoBehaviour
         PlayerPrefs.SetString("Name", _nameInput.GetComponentInChildren<TMP_InputField>().text);
         _nameInput.SetActive(false);
         Play(); // Show play menu
+    }
+
+    /// <summary>
+    /// OnClick function for Achievements button in MainMenu
+    /// </summary>
+    public void ShowAchievements()
+    {
+        ShowSubmenu(_achievementsMenu);
+        AchievementManager.Instance.LoadAchievements();
+    }
+    
+    /// <summary>
+    /// Functionality for buttons in main menu which all do the same
+    /// just with different submenus. Basically here just to keep code DRY.
+    /// </summary>
+    private void ShowSubmenu(GameObject submenu)
+    {
+        _mainMenu.SetActive(false);
+        submenu.SetActive(true);
+        _currentMenu = submenu;
     }
 
     /// <summary>

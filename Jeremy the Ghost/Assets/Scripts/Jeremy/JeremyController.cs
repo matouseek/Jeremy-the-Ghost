@@ -31,6 +31,9 @@ public class JeremyController : MonoBehaviour
     private bool _currentlyScaring = false;
     [SerializeField] private GameObject _cantScareChildrenTextBox;
     private bool _showingCantScareChildrenText = false;
+    
+    // ---------- Achievements ----------
+    [SerializeField] private CountingAchievement _10DeathsAchievement;
 
     private void Start()
     {
@@ -107,6 +110,7 @@ public class JeremyController : MonoBehaviour
         _rb.velocity = Vector2.zero;
         MoveManager.Instance.ResetMoves();
         _energyBar.ResetEnergy();
+        _10DeathsAchievement.IncreaseCount();
     }
 
     private void TryScareChildren()
