@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TheFactory
   m_EditorClassIdentifier: 
   Name: The Factory
-  _completed: 1
+  _completed: 0
   LevelSections:
   - {fileID: 11400000, guid: 7b4d6365c48764009a4e77b21e289294, type: 2}
   - {fileID: 11400000, guid: 755247cf14b104657a76b900747c500d, type: 2}

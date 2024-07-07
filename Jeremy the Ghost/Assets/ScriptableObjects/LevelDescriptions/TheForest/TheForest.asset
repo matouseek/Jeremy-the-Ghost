@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TheForest
   m_EditorClassIdentifier: 
   Name: TheForest
-  _completed: 1
+  _completed: 0
   LevelSections:
   - {fileID: 11400000, guid: 0cbe3b5c62c0346b785f6610437a833b, type: 2}
   - {fileID: 11400000, guid: 591ae97e41c0a4d65b8ac8e3e630d237, type: 2}
