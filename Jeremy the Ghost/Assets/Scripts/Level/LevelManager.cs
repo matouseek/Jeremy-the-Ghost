@@ -57,7 +57,6 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public static void CompleteLevel()
     {
-        if (Instance.Levels.IndexOf(Instance.CurrentlyPlayedLevel) == Instance.Levels.Count - 1) return; // No new level will show after the last one
         Instance.CurrentlyPlayedLevel.Completed = true;
     }
 }
