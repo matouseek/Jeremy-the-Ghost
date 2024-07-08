@@ -6,7 +6,7 @@ using UnityEngine;
 /// For now only via achievements.
 /// </summary>
 [CreateAssetMenu(fileName = "NewInventory", menuName = "Inventory")]
-public class Inventory : ScriptableObject
+public class Inventory : DataPersistentScriptableObject
 {
     // All eyes that the player collected
     // at index 0 is a null value resembling no eye sprite

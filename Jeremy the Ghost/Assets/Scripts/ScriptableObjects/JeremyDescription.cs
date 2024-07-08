@@ -5,7 +5,7 @@ using UnityEngine;
 /// For now that is only customization related.
 /// </summary>
 [CreateAssetMenu(fileName = "NewJeremyDescription", menuName = "JeremyDescription")]
-public class JeremyDescription : ScriptableObject
+public class JeremyDescription : DataPersistentScriptableObject
 {
     public Color Color; // Can be set from the customization menu.
     public Sprite Eyes; // Are awarded from achievements

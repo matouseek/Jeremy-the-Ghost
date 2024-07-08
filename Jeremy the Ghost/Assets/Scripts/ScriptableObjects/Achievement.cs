@@ -1,10 +1,7 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "NewAchievement", menuName = "Achievements/Achievement")]
-public class Achievement : ScriptableObject
+public class Achievement : DataPersistentScriptableObject
 {
     public string Name;
     public string Description;

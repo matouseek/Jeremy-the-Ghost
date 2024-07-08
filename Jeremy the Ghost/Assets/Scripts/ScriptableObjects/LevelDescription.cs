@@ -5,11 +5,10 @@ using UnityEngine;
 /// Class that stores the data (description) of a level.
 /// </summary>
 [CreateAssetMenu(fileName = "NewLevelDescription", menuName = "Levels/LevelDescription")]
-public class LevelDescription : ScriptableObject
+public class LevelDescription : DataPersistentScriptableObject
 {
     public string Name;
     [SerializeField] private bool _completed;
-
     public bool Completed
     {
         get => _completed;

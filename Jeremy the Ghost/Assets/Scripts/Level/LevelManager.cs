@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager Instance { get; private set;  }
+    public static LevelManager Instance { get; private set; }
 
     [SerializeField] private List<LevelDescription> _levels;
     public List<LevelDescription> Levels => _levels;
