@@ -3,6 +3,7 @@ using TMPro;
 
 /// <summary>
 /// A singleton class that manages the moves of Jeremy.
+/// Handles the amount of moves Jeremy has available.
 /// </summary>
 public class MoveManager : MonoBehaviour
 {
@@ -23,8 +24,8 @@ public class MoveManager : MonoBehaviour
     private int _availableMoves;
     public int AvailableMoves => _availableMoves;
     
-    // True -> The moves and Jeremy are reset after all moves used.
-    // False -> Jeremy can move how many times he wants.
+    // True -> The moves and Jeremy are reset after all moves used (When going through a platforming section)
+    // False -> Jeremy can move how many times he wants (This is the case before or in between platforming sections)
     private bool _shouldRestrictAmountOfMoves;
 
     private void Awake()

@@ -9,7 +9,7 @@ public class EnergyBarController : MonoBehaviour
     private Slider _energySlider; // Controls the displayed energy in the UI
 
     [SerializeField] private float _moveCost;
-    public float MoveCost => _moveCost; // Cost per one move
+    public float MoveCost => _moveCost; // Energy cost of a move
     
     [SerializeField] private float _rechargeAmountPerUpdate; // Energy constantly recharges (see Update)
     [SerializeField] private float _slowRechargeSubtractionConstant; // Used when player holds S,
