@@ -40,6 +40,7 @@ public class MoveManager : MonoBehaviour
         } 
     }
 
+    /// <returns> False if player used more moves than allowed and true otherwise.</returns>
     public bool DecreaseAvailableMoves()
     {
         if (!_shouldRestrictAmountOfMoves) return true;
@@ -51,8 +52,7 @@ public class MoveManager : MonoBehaviour
             usedMoreThanMaxMoves = true;
         }
         UpdateMoveCounterTMP();
-
-        // We return false if player used more moves than allowed (MaxMoves)
+        
         return !usedMoreThanMaxMoves;
     }
 
