@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -16,7 +15,7 @@ public class PSEnter : MonoBehaviour
     public int MaxPsMoves => _maxPsMoves;
     [SerializeField] private Transform _newRespawn;
     
-    [SerializeField] private MoveLogger _previousPsMoveLogger;
+    [SerializeField] private MoveLogger _previousPsMoveLogger; // Can be left as null if there is no previous PS
 
     private void OnTriggerEnter2D(Collider2D other)
     {

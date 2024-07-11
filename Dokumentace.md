@@ -2,7 +2,7 @@
 
 V tomto dokumentu jsou popsány a přiblíženy skripty, prefaby, ScriptableObjects ze hry Jeremy the Ghost.
 
-## Jeremy
+## <a name="Jeremy"></a>Jeremy
 Samotná postava Jeremyho sestává z prefabu, který na sobě má JeremyController skript. Je zde popsáno i fungování MoveManageru nebo EnergyBaru, které jsou s Jeremym spojeny.
 
 Child GameObjecty Jeremyho jsou jeho sprite, z důvodu animace, která probíhá v lokálních souřadnicích parent GameObjetu, a Canvas, obsahující hlášku, která je zobrazena při stisknutí klávesy Space mimo collider objektu se skriptem Children.cs (viz kapitola TODO-Children).
@@ -25,7 +25,7 @@ Ve volání FixedUpdate se oba vstupy zpracují a přidá se příslušná síla
 ### <a name="EnergyBar"></a> EnergyBar 
 Je child objektem Canvas prefabu použitého jako UI ve všech levelech. Jeho skript zajišťuje neustálou obnovu energie, která je omezena nějakou maximální hodnotou. Pokud hráč drží klávesu S, je obnova energie snížena. To tak, že se zmenší konstanta, která je každé volání Update (po vynásobení Time.deltaTime) přičtena k momentální energii. 
 
-### MoveManager
+### <a name="MoveManager"></a> MoveManager
 Prefab se stejnojmeným skriptem, který obstarává Jeremyho počet úskoků. Při každém úskoku volá [JeremyController](#JeremyMovement) metodu tohoto skriptu (DecreaseAvailableMoves). Při [resetování](#JeremyReset) se volá ResetMoves z JeremyControlleru. Po každé úpravě počtu úskoků se aktualizuje příslušný text z Canvasu. Před/mezi platformovacími sekcemi jde počítání a omezování úskoků vypnout pomocí DisableMoveCounter a poté zapnout pomocí EnableMoveCounter.
 
 ## ScriptableObjecty
@@ -50,3 +50,20 @@ Zde má každá sekce uložený public key příslušného TODO-leaderboardu.
 
 ### LevelManager
 Udržuje seznam všech levelů a momentálně hraný level. V případě [dohrání levelu](#ScareChildren) se zavolá funkce CompleteLevel. Dále obsahuje OnClick funkce pro výběr levelu z TODO-PlayMenu.
+
+## Platforming/Level sekce
+Levely se skládají z tzv. platformovacích sekcí, které na sebe můžou, ale nemusí, navazovat. Zde jsou zdokumentovány prefaby a skripty využívány pro správu těchto sekcí.
+
+### PlatformingSection
+Označuje platformovací sekci, které může, ale nemusí, předcházet jiná platformovací sekce. Obsahuje 4 child GameObjecty, které platformovací sekci tvoří. 
+
+NoGoingBackCollider je deaktivovaný (non-trigger) collider, který se vstupem do platformovací sekce aktivuje, aby z ní hráč nemohl jít zpět. 
+
+<a name="PS_Respawn"></a>PS_Respawn je nic neobsahující game object, jehož transform.position se využívá jako [respawn](#JeremyReset) dané platformovací sekce. 
+
+PS_Start s jeho colliderem označuje začátek platformovací sekce. Na něm je skript PSEnter, ten obsahuje proměnné pro NoGoingBackCollider, předchozí a novou kameru (každý vstup do platformovací sekce je spjat se změnou kamery), maximální počet úskoků na tuto sekci, [respawn point](#PS_Respawn) a nepovinný [MoveLogger](#MoveLogger) předchozí sekce (pokud nějaká byla). Při kolizi skript aktivuje NoGoingBackCollider, TODO-(změní priority kamer), nastaví [MoveManageru](#MoveManager) maximální počet úskoků, nastaví [Jeremymu](#Jeremy) nový respawn point a pokud je přítomný [MoveLogger předchozí sekce](#MoveLogger), zaloguje počet použitých úskoků.
+
+<a name="MoveLogger"></a>MoveLogger má pouze jednu metodu, která zjistí použitý počet úskoků na platformovací sekci a zapíše ji do TODO-leaderboardu.
+
+### Konec navazujících platformovacích sekcí
+Pro ukončení řetězce několika na sebe navazujících platformovacích sekcí se používá prefab PlatformingSectionsEnd. Ten je, dalo by se říct, podmnožinou PlatformingSection. Při kolizi pouze aktivuje svůj NoGoingBackCollider, TODO-(změní prioritu kamer) a [zaloguje počet použitých úskoků](#MoveLogger) (to musí vždy, jelikož ukončuje nějaký řetězec platformovacích sekcí, takže mu nějaká z nich musí předcházet).
