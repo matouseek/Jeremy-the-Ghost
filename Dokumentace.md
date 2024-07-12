@@ -5,10 +5,10 @@ V tomto dokumentu jsou popsány a přiblíženy skripty, prefaby, ScriptableObje
 ## <a name="Jeremy"></a>Jeremy
 Samotná postava Jeremyho sestává z prefabu, který na sobě má JeremyController skript. Je zde popsáno i fungování MoveManageru nebo EnergyBaru, které jsou s Jeremym spojeny.
 
-Child GameObjecty Jeremyho jsou jeho sprite, z důvodu animace, která probíhá v lokálních souřadnicích parent GameObjetu, a Canvas, obsahující hlášku, která je zobrazena při stisknutí klávesy Space mimo collider objektu se skriptem Children.cs (viz kapitola TODO-Children).
+Child GameObjecty Jeremyho jsou jeho sprite, z důvodu animace, která probíhá v lokálních souřadnicích parent GameObjetu, a Canvas, obsahující hlášku, která je zobrazena při stisknutí klávesy Space mimo collider [objektu se skriptem Children.cs](#Children).
 
 ### <a name="ScareChildren"></a>Strašení dětí (JeremyController)
-V každém volání Update se zkouší vystrašit děti. To se podaří, pokud jsou splněny následující podmínky. Je stisknutý Space, Jeremy koliduje s colliderem dětí (GameObject ve scéně, opět viz TODO-Children) a momentálně děti nestraší. Při splnění podmíněk se spustí korutina, která postupně přehraje audio klipy, změní Jeremyho sprite a zavolá příslušné funkce pro dokončení levelu, jelikož vystrašením dětí končí level.
+V každém volání Update se zkouší vystrašit děti. To se podaří, pokud jsou splněny následující podmínky. Je stisknutý Space, Jeremy koliduje s colliderem [dětí](#Children) a momentálně děti nestraší. Při splnění podmíněk se spustí korutina, která postupně přehraje audio klipy, změní Jeremyho sprite a zavolá příslušné funkce pro dokončení levelu, jelikož vystrašením dětí končí level.
 
 ### <a name="JeremyReset"></a>Resetování Jeremyho (JeremyController)
 Metoda Reset slouží k přemístění Jeremyho na daný (v průběhu hry klidně proměnlivý) respawn point, nastavení jeho počtu úskoků na maximum a nastavení jeho rychlosti 0. Jde o takový ekvivalent zabití Jeremyho. Volá se např. při kolizi Jeremyho s nějakým objektem, který ho zabije, nebo při spotřebování všech úskoků dostupných pro platformovací sekci.
@@ -51,10 +51,35 @@ Zde má každá sekce uložený public key příslušného TODO-leaderboardu.
 ### LevelManager
 Udržuje seznam všech levelů a momentálně hraný level. V případě [dohrání levelu](#ScareChildren) se zavolá funkce CompleteLevel. Dále obsahuje OnClick funkce pro výběr levelu z TODO-PlayMenu.
 
-## Platforming/Level sekce
-Levely se skládají z tzv. platformovacích sekcí, které na sebe můžou, ale nemusí, navazovat. Zde jsou zdokumentovány prefaby a skripty využívány pro správu těchto sekcí.
+## Environment
 
-### PlatformingSection
+Prostředí ve hře je tvořeno zejména 2D sprity s (non-trigger) colliderem. Jsou ovšem nějaké GameObjecty, které se vyskytují častěji nebo opakovaně a existují tedy jejich prefaby.
+
+### Resetující GameObjecty
+
+Skupina GameObjectů nebo skriptů, které nějakým způsobem [resetují](#JeremyReset) Jeremyho nebo úzce interagují s GameObjecty, které Jeremyho resetují.
+
+#### DamagingObjectController
+Pokud GameObject s tímto skriptem koliduje s Jeremym, Jeremy se [resetuje](#JeremyReset).
+
+#### FallReset
+[Resetuje](#JeremyReset) Jeremyho při kolizi s tímto objektem. Používá se pod platformovacími sekcemi, které nemají pevnou zem.
+
+#### Hammer
+Má na sobě skript HammerController a animátor. V animaci jsou v určitých momentech volány funkce HammerControlleru, které aktivují/deaktivují DamagingCollider. Také je možné animaci kladiva začít s nějakým zpožděním za pomoci TODO-(animation helpera).
+
+#### ThornCannon
+Konfigurovatelný kanon/turret, kterému lze nastavit maximální dosah, a čas po kterém na Jeremyho začně střílet. ThornCannonController si nejprve ve Startu zjistí, jak vysoký je jeho sprite (střílí totiž z vrcholu a ne ze středu - místo ze kterého povede raycast bude upraveno pomocí této hodnoty). Poté se každé volání Update kouká, zda je hráč v dosahu (pomocí raycastu směrem k hráči) a pokud ano, sníží countdown. Když countdown dosáhne 0, spustí se animace výstřelu na jejíž konci je pomocí eventu zavolána funkce, které vytvoří instanci střely.
+
+#### ThornBullet
+Střela letí daným směrem a ignoruje kolize se vším, co má tag s hodnotou _ignoredByBulletsTag proměnné (což jsou např. ostatní střely). Pokud zkoliduje s Jeremym, [resetuje](#JeremyReset) ho. Pokud zkoliduje s něčím jiným, spustí se animace hniloby střely (trnu) na jejímž konci střela zanikne.
+
+### Neresetující GameObjecty
+
+Skupina GameObjectů, které se častěji, či opakovaně vyskytují v levelech, ale nijak ne[resetují](#JeremyReset) Jeremyho.
+Mimo jiné také GameObjecty pro správu tzv. platformovací sekce ze kterých se levely skládají. Ty na sebe můžou, ale nemusí, navazovat.
+
+#### PlatformingSection
 Označuje platformovací sekci, které může, ale nemusí, předcházet jiná platformovací sekce. Obsahuje 4 child GameObjecty, které platformovací sekci tvoří. 
 
 NoGoingBackCollider je deaktivovaný (non-trigger) collider, který se vstupem do platformovací sekce aktivuje, aby z ní hráč nemohl jít zpět. 
@@ -65,5 +90,10 @@ PS_Start s jeho colliderem označuje začátek platformovací sekce. Na něm je 
 
 <a name="MoveLogger"></a>MoveLogger má pouze jednu metodu, která zjistí použitý počet úskoků na platformovací sekci a zapíše ji do TODO-leaderboardu.
 
-### Konec navazujících platformovacích sekcí
+#### Konec navazujících platformovacích sekcí
 Pro ukončení řetězce několika na sebe navazujících platformovacích sekcí se používá prefab PlatformingSectionsEnd. Ten je, dalo by se říct, podmnožinou PlatformingSection. Při kolizi pouze aktivuje svůj NoGoingBackCollider, TODO-(změní prioritu kamer) a [zaloguje počet použitých úskoků](#MoveLogger) (to musí vždy, jelikož ukončuje nějaký řetězec platformovacích sekcí, takže mu nějaká z nich musí předcházet).
+
+#### <a name="Children"></a> Children
+OnTriggerEnter2D zobrazí text indikující, že Jeremy je nyní dostatečně blízko na strašení dětí a nastaí CanScare v [JeremyControlleru](#ScareChildren) na true, čímž značí, že je Jeremy dostatečně blízko na vystrašení dětí.
+
+OnTriggerExit2D vrátí věci do původního stavu (text zmizí, CanScare = false).

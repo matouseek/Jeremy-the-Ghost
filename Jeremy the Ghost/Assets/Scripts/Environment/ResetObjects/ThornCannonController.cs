@@ -3,13 +3,13 @@ using UnityEngine;
 public class ThornCannonController : MonoBehaviour
 {
     private const string _playerTag = "Jeremy";
-    [SerializeField] private GameObject _player;
+    private GameObject _player;
     [SerializeField] private float _maxRange; // Maximum range at which the cannon will fire
     [SerializeField] private float _timeToShoot; // This is the max value of _shootCountdown
-    [SerializeField] private float _shootCountdown; // This decreases while aiming at the player
+    private float _shootCountdown; // This decreases while aiming at the player
     private bool _playerInSight;
     [SerializeField] private GameObject _bulletObject;
-    [SerializeField] private Transform _parentForBullets;
+    [SerializeField] private Transform _parentForBullets; // Bullets are created as children of this object
     
     private float _halfSpriteHeight; // Used to offset raycast, so it fires from the top of cannon
 
@@ -47,7 +47,6 @@ public class ThornCannonController : MonoBehaviour
                                                                         
         ShowRaycastGizmos(originPos, dirToPlayer);
     }
-
     
     /// <summary>
     /// Returns true if _shootCountdown is less than or equal to 0.

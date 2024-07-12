@@ -9,6 +9,7 @@ public class Children : MonoBehaviour
     [SerializeField] private GameObject _scareChildrenText;
     [SerializeField] private JeremyController _jeremy;
 
+    // Set this from the editor, if true, provide cameras, if false, no camera change on collision will be done
     [SerializeField] private bool _changeCamerasOnTriggerEnter;
     // Whatever camera is used before triggering the collider
     [SerializeField] private Cinemachine.CinemachineVirtualCamera _previousCamera;
