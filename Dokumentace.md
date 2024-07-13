@@ -69,7 +69,7 @@ Pokud GameObject s tímto skriptem koliduje s Jeremym, Jeremy se [resetuje](#Jer
 Má na sobě skript HammerController a animátor. V animaci jsou v určitých momentech volány funkce HammerControlleru, které aktivují/deaktivují DamagingCollider. Také je možné animaci kladiva začít s nějakým zpožděním za pomoci TODO-(animation helpera).
 
 #### ThornCannon
-Konfigurovatelný kanon/turret, kterému lze nastavit maximální dosah, a čas po kterém na Jeremyho začně střílet. ThornCannonController si nejprve ve Startu zjistí, jak vysoký je jeho sprite (střílí totiž z vrcholu a ne ze středu - místo ze kterého povede raycast bude upraveno pomocí této hodnoty). Poté se každé volání Update kouká, zda je hráč v dosahu (pomocí raycastu směrem k hráči) a pokud ano, sníží countdown. Když countdown dosáhne 0, spustí se animace výstřelu na jejíž konci je pomocí eventu zavolána funkce, které vytvoří instanci střely.
+Konfigurovatelný kanon/turret, kterému lze nastavit maximální dosah a čas po kterém na Jeremyho začně střílet. ThornCannonController si nejprve ve Startu zjistí, jak vysoký je jeho sprite (střílí totiž z vrcholu a ne ze středu a tedy místo ze kterého povede raycast bude upraveno pomocí této hodnoty). Poté se každé volání Update kouká, zda je hráč v dosahu (pomocí raycastu směrem k hráči) a pokud ano, sníží countdown. Když countdown dosáhne 0, spustí se animace výstřelu na jejímž konci je pomocí eventu zavolána funkce, které vytvoří instanci střely.
 
 #### ThornBullet
 Střela letí daným směrem a ignoruje kolize se vším, co má tag s hodnotou _ignoredByBulletsTag proměnné (což jsou např. ostatní střely). Pokud zkoliduje s Jeremym, [resetuje](#JeremyReset) ho. Pokud zkoliduje s něčím jiným, spustí se animace hniloby střely (trnu) na jejímž konci střela zanikne.
@@ -77,7 +77,7 @@ Střela letí daným směrem a ignoruje kolize se vším, co má tag s hodnotou 
 ### Neresetující GameObjecty
 
 Skupina GameObjectů, které se častěji, či opakovaně vyskytují v levelech, ale nijak ne[resetují](#JeremyReset) Jeremyho.
-Mimo jiné také GameObjecty pro správu tzv. platformovací sekce ze kterých se levely skládají. Ty na sebe můžou, ale nemusí, navazovat.
+Mimo jiné také GameObjecty pro správu tzv. platformovacích sekcí ze kterých se levely skládají. Ty na sebe můžou, ale nemusí, navazovat.
 
 #### PlatformingSection
 Označuje platformovací sekci, které může, ale nemusí, předcházet jiná platformovací sekce. Obsahuje 4 child GameObjecty, které platformovací sekci tvoří. 
@@ -94,6 +94,6 @@ PS_Start s jeho colliderem označuje začátek platformovací sekce. Na něm je 
 Pro ukončení řetězce několika na sebe navazujících platformovacích sekcí se používá prefab PlatformingSectionsEnd. Ten je, dalo by se říct, podmnožinou PlatformingSection. Při kolizi pouze aktivuje svůj NoGoingBackCollider, TODO-(změní prioritu kamer) a [zaloguje počet použitých úskoků](#MoveLogger) (to musí vždy, jelikož ukončuje nějaký řetězec platformovacích sekcí, takže mu nějaká z nich musí předcházet).
 
 #### <a name="Children"></a> Children
-OnTriggerEnter2D zobrazí text indikující, že Jeremy je nyní dostatečně blízko na strašení dětí a nastaí CanScare v [JeremyControlleru](#ScareChildren) na true, čímž značí, že je Jeremy dostatečně blízko na vystrašení dětí.
+OnTriggerEnter2D zobrazí text indikující, že Jeremy je nyní dostatečně blízko na strašení dětí a nastaví CanScare v [JeremyControlleru](#ScareChildren) na true, čímž značí, že je Jeremy dostatečně blízko na vystrašení dětí.
 
 OnTriggerExit2D vrátí věci do původního stavu (text zmizí, CanScare = false).
