@@ -75,14 +75,12 @@ public class LeaderboardManager : MonoBehaviour
             {
                 if (entry.Rank == 0 && entry.Score == 0) // Player has not set an entry
                 {
-                    Debug.Log("first entry");
-                    // Set his first entry
+                    // Set their first entry
                     LeaderboardCreator.UploadNewEntry(sectionDescription.LeaderboardPublicKey,
                         PlayerPrefs.GetString("Name"), movesToFinish);
                 }
                 else if (movesToFinish < entry.Score) // Player has beaten their PB
                 {
-                    Debug.Log($"Update: {entry.Username} {movesToFinish}");
                     // Remove previous entry and set a new one
                     LeaderboardCreator.DeleteEntry(sectionDescription.LeaderboardPublicKey);
                     LeaderboardCreator.UploadNewEntry(sectionDescription.LeaderboardPublicKey,
@@ -94,7 +92,7 @@ public class LeaderboardManager : MonoBehaviour
     }
     
     /// <summary>
-    /// Displays the leaderboard based on if the player chose a name yet.
+    /// Displays the leaderboard with the data for currently selected level and level section.
     /// </summary>
     public void ShowLeaderboard()
     {
@@ -116,6 +114,9 @@ public class LeaderboardManager : MonoBehaviour
         SelectLevelSection();
     }
 
+    /// <summary>
+    /// OnClick function for LevelSection selection dropdown in Leaderboard
+    /// </summary>
     public void SelectLevelSection()
     {
         GetLeaderboard(LevelManager

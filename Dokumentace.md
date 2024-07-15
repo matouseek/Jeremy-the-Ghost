@@ -32,24 +32,24 @@ Prefab se stejnojmeným skriptem, který obstarává Jeremyho počet úskoků. P
 
 Ve hře slouží ScriptableObjecty pro ukládání dat za runtimu. Jsou TODO-serializovány(odkaz na data persistance) při ukončení aplikace a deserializovány při jejím spuštění. Krom zde zmíněných ScriptableObjectů jsou ve hře využity ještě následující: [LevelDescription](#LevelDescription), [LevelSectionDescription](#LevelSectionDescription) a TODO-achievementy.
 
-### JeremyDescription
+### <a name="JeremyDescription"></a> JeremyDescription
 Slouží pro ukládání dat o Jeremym. Obsahuje customizaci Jeremyho. To zahrnuje Jeremyho barvu a skin očí.
 
-### Inventory
+### <a name="Inventory"></a> Inventory
 Hráč může během hraní získávat předměty, které se ukládají právě sem. Momentálně se zde nachází pouze získané skiny očí za splnění TODO-achievementů.
 
 ## Levely
 
-Každý level ve hře má v Unity svou vlastní scénu. Levely sestávají z tzv. platformovacích sekcí. To jsou na sebe navazující části levelu ve kterých má hráč omezený počet pohybů a při neúspěchu procházení jedné ze sekcí se [vrátí](#JeremyReset) na její začátek. Každá z těchto sekcí má svůj TODO-leaderboard.
+Každý level ve hře má v Unity svou vlastní scénu. Levely sestávají z tzv. platformovacích sekcí. To jsou na sebe navazující části levelu ve kterých má hráč omezený počet pohybů a při neúspěchu procházení jedné ze sekcí se [vrátí](#JeremyReset) na její začátek. Každá z těchto sekcí má svůj [leaderboard](#LeaderboardMenu).
 
 ### <a name="LevelDescription"></a> ScriptableObjecty levelů
 Každý level obsahuje nějaký svůj popis - LevelDescription. Nachází se zde např. list level sekcí tohoto levelu, bool, zda byl level dohrán, nebo TODO-achievement za dohrání tohoto levelu.
 
 ### <a name="LevelSectionDescription"></a>ScriptableObjecty level sekcí
-Zde má každá sekce uložený public key příslušného TODO-leaderboardu.
+Zde má každá sekce uložený public key příslušného [leaderboardu](#LeaderboardMenu).
 
 ### LevelManager
-Udržuje seznam všech levelů a momentálně hraný level. V případě [dohrání levelu](#ScareChildren) se zavolá funkce CompleteLevel. Dále obsahuje OnClick funkce pro výběr levelu z TODO-PlayMenu.
+Udržuje seznam všech levelů a momentálně hraný level. V případě [dohrání levelu](#ScareChildren) se zavolá funkce CompleteLevel. Dále obsahuje OnClick funkce pro výběr levelu z [PlayMenu](#PlayMenu).
 
 ## Environment
 
@@ -88,7 +88,7 @@ NoGoingBackCollider je deaktivovaný (non-trigger) collider, který se vstupem d
 
 PS_Start s jeho colliderem označuje začátek platformovací sekce. Na něm je skript PSEnter, ten obsahuje proměnné pro NoGoingBackCollider, předchozí a novou kameru (každý vstup do platformovací sekce je spjat se změnou kamery), maximální počet úskoků na tuto sekci, [respawn point](#PS_Respawn) a nepovinný [MoveLogger](#MoveLogger) předchozí sekce (pokud nějaká byla). Při kolizi skript aktivuje NoGoingBackCollider, TODO-(změní priority kamer), nastaví [MoveManageru](#MoveManager) maximální počet úskoků, nastaví [Jeremymu](#Jeremy) nový respawn point a pokud je přítomný [MoveLogger předchozí sekce](#MoveLogger), zaloguje počet použitých úskoků.
 
-<a name="MoveLogger"></a>MoveLogger má pouze jednu metodu, která zjistí použitý počet úskoků na platformovací sekci a zapíše ji do TODO-leaderboardu.
+<a name="MoveLogger"></a>MoveLogger má pouze jednu metodu, která zjistí použitý počet úskoků na platformovací sekci a zapíše ji do [leaderboardu](#LeaderboardMenu).
 
 #### Konec navazujících platformovacích sekcí
 Pro ukončení řetězce několika na sebe navazujících platformovacích sekcí se používá prefab PlatformingSectionsEnd. Ten je, dalo by se říct, podmnožinou PlatformingSection. Při kolizi pouze aktivuje svůj NoGoingBackCollider, TODO-(změní prioritu kamer) a [zaloguje počet použitých úskoků](#MoveLogger) (to musí vždy, jelikož ukončuje nějaký řetězec platformovacích sekcí, takže mu nějaká z nich musí předcházet).
@@ -97,3 +97,45 @@ Pro ukončení řetězce několika na sebe navazujících platformovacích sekc�
 OnTriggerEnter2D zobrazí text indikující, že Jeremy je nyní dostatečně blízko na strašení dětí a nastaví CanScare v [JeremyControlleru](#ScareChildren) na true, čímž značí, že je Jeremy dostatečně blízko na vystrašení dětí.
 
 OnTriggerExit2D vrátí věci do původního stavu (text zmizí, CanScare = false).
+
+## Menu
+
+Popis funkcionality a přechodů v menu.
+
+### <a name="MainMenu"></a> MainMenu
+Hlavní menu je spravováno objektem MenuManager se stejnojmeným skriptem. Všechny funkce zde slouží jako OnClick funkce nějakého tlačítka v menu, nebo ze dále volají z OnClick funkcí.
+
+<a name="PlayMenu"></a>Play funkce (pokud si hráč ještě nezvolil přezdívku) zobrazí input field do kterého hráč zadá svou přezdívku. Pokud si hráč již přezdívku zvolil, zobrazí výběr levelů podle toho, které levely již hráč dokončil. Krom prvního levelu platí, že tlačítko pro spuštění levelu se zobrazí, pokud je předchozí level dokončen.
+
+ReturnToMainMenu slouží pro navrácení do hlavního menu pomocí tlačítka Return v nějakém submenu.
+
+ShowLeaderboard zobrazí [leaderboard menu](#LeaderboardMenu).
+
+ShowCustomization zobrazí [customization menu](#CustomizationMenu).
+
+SubmitName při stisku Submit tlačítka u volby přezdívky uloží do PlayerPreferences pod názvem "Name" přezdívku hráče.
+
+ShowAchievement zobrazí TODO-(achievements menu).
+
+### <a name="CustomizationMenu"></a>CustomizationMenu
+Při zobrazení menu se načtou data z [inventáře](#Inventory). Pokud má hráč na výběr z různých kosmetických doplňků (tedy má v inventáří více než jeden), zobrazí se i tlačítka pro výběr těchto předmětů.
+
+Skript obsahuje OnClick funcke pro změnu barvy, nebo změnu kosmetických doplňků Jeremyho. Změny Jeremyho customizace se ukládají do [příslušného ScriptableObjectu](#JeremyDescription).
+
+### <a name="LeaderboardMenu"></a>LeaderboardMenu
+Příslušný manager tohoto menu na sobě má skript, který ovládá leaderboard menu. Ten obsahuje listy jednotlivých sloupců v leaderboardu, dropdown menu pro výběr levelu a level sekce a text field pro zobrazování zpráv při načítání leaderboardu.
+
+GetLeaderboard načte data z leaderboardu a a po dobu načítání dat zobrazí text "Loading". Při neúspěšném načtení dat zobrazí text "Error loading leaderboard".
+
+ClearPreviousEntries zobrazí na všech místech leaderboardu prázdné řetězce.
+
+SetEntry nastaví hráči novou hodnotu v leaderboardu a to v jednom ze dvou případů. Pokud žádnout hodnotu pro daný level a level sekci v leaderboardu ještě nemá, nebo pokud danou level sekci zvládl dohrát s nižším počtem úskoků.
+
+ShowLeaderboard je funkce volaná z [MenuManageru](#MainMenu) při přechodu do LeaderboardMenu.
+
+SelectLevel upraví dropdown LevelSection tak, aby odpovídal sekcím zvoleného levelu. Dále zavolá SelectLevelSection.
+
+SelectLevelSection zavolá GetLeaderboard pro zvolenou sekci.
+
+### PauseMenu
+Je menu, které obstarává PauseMenuManager (se stejnojmeným skriptem) a zobrazí se, když hráč při hraní levelu stiskne klávesu Esc. Menu se dá zavřít stisknutím klávesy podruhé, nebo kliknutím na tlačítko Close. Pro tuto funkčnost obsahuje skript metody Pause a Unpause. Skript dále obsahuje OnClick funkce pro jednotlivá tlačítka menu.
