@@ -65,8 +65,8 @@ Pokud GameObject s tímto skriptem koliduje s Jeremym, Jeremy se [resetuje](#Jer
 #### FallReset
 [Resetuje](#JeremyReset) Jeremyho při kolizi s tímto objektem. Používá se pod platformovacími sekcemi, které nemají pevnou zem.
 
-#### Hammer
-Má na sobě skript HammerController a animátor. V animaci jsou v určitých momentech volány funkce HammerControlleru, které aktivují/deaktivují DamagingCollider. Také je možné animaci kladiva začít s nějakým zpožděním za pomoci TODO-(animation helpera).
+#### <a name="Hammer"></a>Hammer
+Má na sobě skript HammerController a animátor. V animaci jsou v určitých momentech volány funkce HammerControlleru, které aktivují/deaktivují DamagingCollider. Také je možné animaci kladiva začít s nějakým zpožděním za pomoci [animation helpera](#AnimationHelper).
 
 #### <a name="ThornCannon"></a>ThornCannon
 Konfigurovatelný kanon/turret, kterému lze nastavit maximální dosah a čas po kterém na Jeremyho začně střílet. ThornCannonController si nejprve ve Startu zjistí, jak vysoký je jeho sprite (střílí totiž z vrcholu a ne ze středu a tedy místo ze kterého povede raycast bude upraveno pomocí této hodnoty). Poté se každé volání Update kouká, zda je hráč v dosahu (pomocí raycastu směrem k hráči) a pokud ano, sníží countdown. Když countdown dosáhne 0, spustí se animace výstřelu na jejímž konci je pomocí eventu zavolána funkce, které vytvoří instanci střely.
@@ -79,19 +79,19 @@ Střela letí daným směrem a ignoruje kolize se vším, co má tag s hodnotou 
 Skupina GameObjectů, které se častěji, či opakovaně vyskytují v levelech, ale nijak ne[resetují](#JeremyReset) Jeremyho.
 Mimo jiné také GameObjecty pro správu tzv. platformovacích sekcí ze kterých se levely skládají. Ty na sebe můžou, ale nemusí, navazovat.
 
-#### PlatformingSection
+#### <a name="PlatformingSection"></a>PlatformingSection
 Označuje platformovací sekci, které může, ale nemusí, předcházet jiná platformovací sekce. Obsahuje 4 child GameObjecty, které platformovací sekci tvoří. 
 
 NoGoingBackCollider je deaktivovaný (non-trigger) collider, který se vstupem do platformovací sekce aktivuje, aby z ní hráč nemohl jít zpět. 
 
 <a name="PS_Respawn"></a>PS_Respawn je nic neobsahující game object, jehož transform.position se využívá jako [respawn](#JeremyReset) dané platformovací sekce. 
 
-PS_Start s jeho colliderem označuje začátek platformovací sekce. Na něm je skript PSEnter, ten obsahuje proměnné pro NoGoingBackCollider, předchozí a novou kameru (každý vstup do platformovací sekce je spjat se změnou kamery), maximální počet úskoků na tuto sekci, [respawn point](#PS_Respawn) a nepovinný [MoveLogger](#MoveLogger) předchozí sekce (pokud nějaká byla). Při kolizi skript aktivuje NoGoingBackCollider, TODO-(změní priority kamer), nastaví [MoveManageru](#MoveManager) maximální počet úskoků, nastaví [Jeremymu](#Jeremy) nový respawn point a pokud je přítomný [MoveLogger předchozí sekce](#MoveLogger), zaloguje počet použitých úskoků.
+PS_Start s jeho colliderem označuje začátek platformovací sekce. Na něm je skript PSEnter, ten obsahuje proměnné pro NoGoingBackCollider, předchozí a novou kameru (každý vstup do platformovací sekce je spjat se změnou kamery), maximální počet úskoků na tuto sekci, [respawn point](#PS_Respawn) a nepovinný [MoveLogger](#MoveLogger) předchozí sekce (pokud nějaká byla). Při kolizi skript aktivuje NoGoingBackCollider, [změní priority kamer](#CameraHelper), nastaví [MoveManageru](#MoveManager) maximální počet úskoků, nastaví [Jeremymu](#Jeremy) nový respawn point a pokud je přítomný [MoveLogger předchozí sekce](#MoveLogger), zaloguje počet použitých úskoků.
 
 <a name="MoveLogger"></a>MoveLogger má pouze jednu metodu, která zjistí použitý počet úskoků na platformovací sekci a zapíše ji do [leaderboardu](#LeaderboardMenu).
 
 #### Konec navazujících platformovacích sekcí
-Pro ukončení řetězce několika na sebe navazujících platformovacích sekcí se používá prefab PlatformingSectionsEnd. Ten je, dalo by se říct, podmnožinou PlatformingSection. Při kolizi pouze aktivuje svůj NoGoingBackCollider, TODO-(změní prioritu kamer) a [zaloguje počet použitých úskoků](#MoveLogger) (to musí vždy, jelikož ukončuje nějaký řetězec platformovacích sekcí, takže mu nějaká z nich musí předcházet).
+Pro ukončení řetězce několika na sebe navazujících platformovacích sekcí se používá prefab PlatformingSectionsEnd. Ten je, dalo by se říct, podmnožinou PlatformingSection. Při kolizi pouze aktivuje svůj NoGoingBackCollider, [změní prioritu kamer](#CameraHelper) a [zaloguje počet použitých úskoků](#MoveLogger) (to musí vždy, jelikož ukončuje nějaký řetězec platformovacích sekcí, takže mu nějaká z nich musí předcházet).
 
 #### <a name="Children"></a> Children
 OnTriggerEnter2D zobrazí text indikující, že Jeremy je nyní dostatečně blízko na strašení dětí a nastaví CanScare v [JeremyControlleru](#ScareChildren) na true, čímž značí, že je Jeremy dostatečně blízko na vystrašení dětí.
@@ -173,3 +173,16 @@ Tento efekt se využívá v Intro levelu při průchodu dveřmi v domě.
 ### FadeInThornCannons
 Efekt slouží pouze jednomu účelu. Nachází se na objektu s trigger colliderem a jakmile hráč zkoliduje s tímto objektem, má odahlit [kanóny](#ThornCannon). Při Startu tedy nastaví animátorům kanónů trigger, který kanóny zahalí. Při kolizi se kanóny začnou odhalovat.
 
+## Helper skripty
+
+Zde jsou popsány skripty, které obsahují nějaké pomocné funkce k různým aspektům hry a nejsou specializovány na nějaké konkrétní objekt.
+
+### <a name="AnimationHelper"></a>AnimationHelper
+Obsahuje metody, které pomáhají s animacemi.
+
+SetAnimatorBoolWithDelay dostane argumenty animátor, jméno bool hodnoty, její hodnotu a zpoždění. Po tomto zpoždění nastaví danou bool hodnotu animátoru. Toto je využívané pro zpoždění animace [kladiv](#Hammer).
+
+### <a name="CameraHelper"></a>CameraHelper
+Obsahuje metody, které pomáhají s kamerami.
+
+SwapCameraPriority prohodí priority dvou kamer. Používá se pro změnu kamer při přechodu mezi [platformovacími sekcemi](#PlatformingSection).
