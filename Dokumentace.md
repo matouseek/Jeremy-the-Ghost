@@ -30,20 +30,20 @@ Prefab se stejnojmeným skriptem, který obstarává Jeremyho počet úskoků. P
 
 ## ScriptableObjecty
 
-Ve hře slouží ScriptableObjecty pro ukládání dat za runtimu. Jsou TODO-serializovány(odkaz na data persistance) při ukončení aplikace a deserializovány při jejím spuštění. Krom zde zmíněných ScriptableObjectů jsou ve hře využity ještě následující: [LevelDescription](#LevelDescription), [LevelSectionDescription](#LevelSectionDescription) a TODO-achievementy.
+Ve hře slouží ScriptableObjecty pro ukládání dat za runtimu. Jsou TODO-serializovány(odkaz na data persistance) při ukončení aplikace a deserializovány při jejím spuštění. Krom zde zmíněných ScriptableObjectů jsou ve hře využity ještě následující: [LevelDescription](#LevelDescription), [LevelSectionDescription](#LevelSectionDescription) a [achievementy](#Achievements).
 
 ### <a name="JeremyDescription"></a> JeremyDescription
 Slouží pro ukládání dat o Jeremym. Obsahuje customizaci Jeremyho. To zahrnuje Jeremyho barvu a skin očí.
 
 ### <a name="Inventory"></a> Inventory
-Hráč může během hraní získávat předměty, které se ukládají právě sem. Momentálně se zde nachází pouze získané skiny očí za splnění TODO-achievementů.
+Hráč může během hraní získávat předměty, které se ukládají právě sem. Momentálně se zde nachází pouze získané skiny očí za splnění [achievementů](#Achievements).
 
 ## Levely
 
 Každý level ve hře má v Unity svou vlastní scénu. Levely sestávají z tzv. platformovacích sekcí. To jsou na sebe navazující části levelu ve kterých má hráč omezený počet pohybů a při neúspěchu procházení jedné ze sekcí se [vrátí](#JeremyReset) na její začátek. Každá z těchto sekcí má svůj [leaderboard](#LeaderboardMenu).
 
 ### <a name="LevelDescription"></a> ScriptableObjecty levelů
-Každý level obsahuje nějaký svůj popis - LevelDescription. Nachází se zde např. list level sekcí tohoto levelu, bool, zda byl level dohrán, nebo TODO-achievement za dohrání tohoto levelu.
+Každý level obsahuje nějaký svůj popis - LevelDescription. Nachází se zde např. list level sekcí tohoto levelu, bool, zda byl level dohrán, nebo [achievement](#Achievements) za dohrání tohoto levelu.
 
 ### <a name="LevelSectionDescription"></a>ScriptableObjecty level sekcí
 Zde má každá sekce uložený public key příslušného [leaderboardu](#LeaderboardMenu).
@@ -115,7 +115,7 @@ ShowCustomization zobrazí [customization menu](#CustomizationMenu).
 
 SubmitName při stisku Submit tlačítka u volby přezdívky uloží do PlayerPreferences pod názvem "Name" přezdívku hráče.
 
-ShowAchievement zobrazí TODO-(achievements menu).
+ShowAchievement zobrazí [achievements menu](#AchievementMenu).
 
 ### <a name="CustomizationMenu"></a>CustomizationMenu
 Při zobrazení menu se načtou data z [inventáře](#Inventory). Pokud má hráč na výběr z různých kosmetických doplňků (tedy má v inventáří více než jeden), zobrazí se i tlačítka pro výběr těchto předmětů.
@@ -139,3 +139,15 @@ SelectLevelSection zavolá GetLeaderboard pro zvolenou sekci.
 
 ### PauseMenu
 Je menu, které obstarává PauseMenuManager (se stejnojmeným skriptem) a zobrazí se, když hráč při hraní levelu stiskne klávesu Esc. Menu se dá zavřít stisknutím klávesy podruhé, nebo kliknutím na tlačítko Close. Pro tuto funkčnost obsahuje skript metody Pause a Unpause. Skript dále obsahuje OnClick funkce pro jednotlivá tlačítka menu.
+
+## <a name="Achievements"></a>Achievementy
+
+### Achievementy jako ScriptableObjects
+Každý achievement je reprezentován jako ScriptableObject, který má jméno, popis, odměnu (zatím kosmetický doplněk - sprite očí) a bool, zda je achievement splněný, dále je zde také odkaz na inventář, kam se případná odměna přidá, když je achievement splněný.
+
+### CountingAchievementy
+Potomek Achievementu, který představuje achievement, který je udělen za nějaký počet něčeho (např. achievement za 10 objevených secretů). Tento potomek svého rodiče tedy rozšiřuje o počítadlo a nějakou hraniční hodnotu při jejímž překonání je achievement splněn. Počítadlo pak ostatní skripty mohou zvětšovat pomocí IncreaseCount metody, která se sama stará o případné splnění achievementu.
+
+### <a name="AchievementMenu"></a>AchievementManager
+Spravuje AchievementMenu, konkrétně správné zobrazení achievementu v tomto menu. Pro každý achievement metoda vyplní příslušný box jménem, popisem a případně zobrazí odměnu za daný achievement. Pokud je achievement splněný, je označen nápisem "Completed".
+
