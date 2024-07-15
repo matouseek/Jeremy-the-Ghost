@@ -68,7 +68,7 @@ Pokud GameObject s tímto skriptem koliduje s Jeremym, Jeremy se [resetuje](#Jer
 #### Hammer
 Má na sobě skript HammerController a animátor. V animaci jsou v určitých momentech volány funkce HammerControlleru, které aktivují/deaktivují DamagingCollider. Také je možné animaci kladiva začít s nějakým zpožděním za pomoci TODO-(animation helpera).
 
-#### ThornCannon
+#### <a name="ThornCannon"></a>ThornCannon
 Konfigurovatelný kanon/turret, kterému lze nastavit maximální dosah a čas po kterém na Jeremyho začně střílet. ThornCannonController si nejprve ve Startu zjistí, jak vysoký je jeho sprite (střílí totiž z vrcholu a ne ze středu a tedy místo ze kterého povede raycast bude upraveno pomocí této hodnoty). Poté se každé volání Update kouká, zda je hráč v dosahu (pomocí raycastu směrem k hráči) a pokud ano, sníží countdown. Když countdown dosáhne 0, spustí se animace výstřelu na jejímž konci je pomocí eventu zavolána funkce, které vytvoří instanci střely.
 
 #### ThornBullet
@@ -160,3 +160,16 @@ Předek pro každý ScriptableObject, který chce být serializován. Obsahuje v
 
 ### DataPersistenceManager
 DontDestroyOnLoad objekt, jehož skript obsahuje všechny DataPersistentScriptableObjecty. Při Startu zavolá metodu pro deserializaci každého takového objektu. Při OnApplicationQuit zaserializuje každý takový objekt.
+
+## Efekty
+
+Zde jsou popsány skripty, které vytvářejí nějaký efekt.
+
+### MovingObjectSpriteFade
+Tento skript dostane nějaký list SpriteRendererů, nějaký pohybující se objekt a počátek a konec fade efektu. Když se pohybující se objekt nachází před počátkem efektu, nic se neděje. Když se pohybující se objekt nachází mezi počátkem a koncem efektu, nastaví se alfa kanál SpriteRendererů podle toho, jak moc je pohybující se objekt blízko konci. Pokud je pohybující se objekt za koncem efektu, alfa kanál všech SpriteRendererů je nastaven na 0.
+
+Tento efekt se využívá v Intro levelu při průchodu dveřmi v domě.
+
+### FadeInThornCannons
+Efekt slouží pouze jednomu účelu. Nachází se na objektu s trigger colliderem a jakmile hráč zkoliduje s tímto objektem, má odahlit [kanóny](#ThornCannon). Při Startu tedy nastaví animátorům kanónů trigger, který kanóny zahalí. Při kolizi se kanóny začnou odhalovat.
+
