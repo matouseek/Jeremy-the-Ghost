@@ -30,7 +30,7 @@ Prefab se stejnojmeným skriptem, který obstarává Jeremyho počet úskoků. P
 
 ## ScriptableObjecty
 
-Ve hře slouží ScriptableObjecty pro ukládání dat za runtimu. Jsou TODO-serializovány(odkaz na data persistance) při ukončení aplikace a deserializovány při jejím spuštění. Krom zde zmíněných ScriptableObjectů jsou ve hře využity ještě následující: [LevelDescription](#LevelDescription), [LevelSectionDescription](#LevelSectionDescription) a [achievementy](#Achievements).
+Ve hře slouží ScriptableObjecty pro ukládání dat za runtimu. Jsou [serializovány](#DataPersistence) při ukončení aplikace a deserializovány při jejím spuštění. Krom zde zmíněných ScriptableObjectů jsou ve hře využity ještě následující: [LevelDescription](#LevelDescription), [LevelSectionDescription](#LevelSectionDescription) a [achievementy](#Achievements).
 
 ### <a name="JeremyDescription"></a> JeremyDescription
 Slouží pro ukládání dat o Jeremym. Obsahuje customizaci Jeremyho. To zahrnuje Jeremyho barvu a skin očí.
@@ -151,3 +151,12 @@ Potomek Achievementu, který představuje achievement, který je udělen za něj
 ### <a name="AchievementMenu"></a>AchievementManager
 Spravuje AchievementMenu, konkrétně správné zobrazení achievementu v tomto menu. Pro každý achievement metoda vyplní příslušný box jménem, popisem a případně zobrazí odměnu za daný achievement. Pokud je achievement splněný, je označen nápisem "Completed".
 
+## <a name="DataPersistence"></a>DataPersistence
+
+Za běhu jsou data uložená ve ScriptableObjectech, po ukončení aplikace ale musí být serializovány a uloženy. Data se serializují do JSON souborů a nijak se nekódují.
+
+### DataPersistentScriptableObject
+Předek pro každý ScriptableObject, který chce být serializován. Obsahuje virtuální metody pro serializaci a deserializaci ScriptableObjectu. Ty mají implementaci, která zaserializuje veřejné vlastnosti objektu a zapíše do souborů v adresáři Application.persistentDataPath, soubory jsou pojmenovány podle jména příslušného ScriptableObjectu. Různé SciptableObjecty si tuto funkcionalitu mohou overridenout.
+
+### DataPersistenceManager
+DontDestroyOnLoad objekt, jehož skript obsahuje všechny DataPersistentScriptableObjecty. Při Startu zavolá metodu pro deserializaci každého takového objektu. Při OnApplicationQuit zaserializuje každý takový objekt.
