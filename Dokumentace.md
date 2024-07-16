@@ -1,6 +1,6 @@
 # Jeremy the Ghost - Dokumentace
 
-V tomto dokumentu jsou popsány a přiblíženy skripty, prefaby, ScriptableObjects ze hry Jeremy the Ghost.
+V tomto dokumentu jsou popsány a přiblíženy skripty, prefaby a ScriptableObjects ze hry Jeremy the Ghost.
 
 ## <a name="Jeremy"></a>Jeremy
 Samotná postava Jeremyho sestává z prefabu, který na sobě má JeremyController skript. Je zde popsáno i fungování MoveManageru nebo EnergyBaru, které jsou s Jeremym spojeny.
@@ -40,7 +40,7 @@ Hráč může během hraní získávat předměty, které se ukládají právě 
 
 ## Levely
 
-Každý level ve hře má v Unity svou vlastní scénu. Levely sestávají z tzv. platformovacích sekcí. To jsou na sebe navazující části levelu ve kterých má hráč omezený počet pohybů a při neúspěchu procházení jedné ze sekcí se [vrátí](#JeremyReset) na její začátek. Každá z těchto sekcí má svůj [leaderboard](#LeaderboardMenu).
+Každý level ve hře má v Unity svou vlastní scénu. Levely sestávají z tzv. platformovacích sekcí. To jsou na sebe navazující části levelu, ve kterých má hráč omezený počet pohybů a při neúspěchu procházení jedné ze sekcí se [vrátí](#JeremyReset) na její začátek. Každá z těchto sekcí má svůj [leaderboard](#LeaderboardMenu).
 
 ### <a name="LevelDescription"></a> ScriptableObjecty levelů
 Každý level obsahuje nějaký svůj popis - LevelDescription. Nachází se zde např. list level sekcí tohoto levelu, bool, zda byl level dohrán, nebo [achievement](#Achievements) za dohrání tohoto levelu.
@@ -69,7 +69,7 @@ Pokud GameObject s tímto skriptem koliduje s Jeremym, Jeremy se [resetuje](#Jer
 Má na sobě skript HammerController a animátor. V animaci jsou v určitých momentech volány funkce HammerControlleru, které aktivují/deaktivují DamagingCollider. Také je možné animaci kladiva začít s nějakým zpožděním za pomoci [animation helpera](#AnimationHelper).
 
 #### <a name="ThornCannon"></a>ThornCannon
-Konfigurovatelný kanon/turret, kterému lze nastavit maximální dosah a čas po kterém na Jeremyho začně střílet. ThornCannonController si nejprve ve Startu zjistí, jak vysoký je jeho sprite (střílí totiž z vrcholu a ne ze středu a tedy místo ze kterého povede raycast bude upraveno pomocí této hodnoty). Poté se každé volání Update kouká, zda je hráč v dosahu (pomocí raycastu směrem k hráči) a pokud ano, sníží countdown. Když countdown dosáhne 0, spustí se animace výstřelu na jejímž konci je pomocí eventu zavolána funkce, které vytvoří instanci střely.
+Konfigurovatelný kanón/turret, kterému lze nastavit maximální dosah a čas po kterém na Jeremyho začně střílet. ThornCannonController si nejprve ve Startu zjistí, jak vysoký je jeho sprite (střílí totiž z vrcholu a ne ze středu a tedy místo ze kterého povede raycast bude upraveno pomocí této hodnoty). Poté se každé volání Update kouká, zda je hráč v dosahu (pomocí raycastu směrem k hráči) a pokud ano, sníží countdown. Když countdown dosáhne 0, spustí se animace výstřelu na jejímž konci je pomocí eventu zavolána funkce, které vytvoří instanci střely.
 
 #### ThornBullet
 Střela letí daným směrem a ignoruje kolize se vším, co má tag s hodnotou _ignoredByBulletsTag proměnné (což jsou např. ostatní střely). Pokud zkoliduje s Jeremym, [resetuje](#JeremyReset) ho. Pokud zkoliduje s něčím jiným, spustí se animace hniloby střely (trnu) na jejímž konci střela zanikne.
@@ -77,7 +77,7 @@ Střela letí daným směrem a ignoruje kolize se vším, co má tag s hodnotou 
 ### Neresetující GameObjecty
 
 Skupina GameObjectů, které se častěji, či opakovaně vyskytují v levelech, ale nijak ne[resetují](#JeremyReset) Jeremyho.
-Mimo jiné také GameObjecty pro správu tzv. platformovacích sekcí ze kterých se levely skládají. Ty na sebe můžou, ale nemusí, navazovat.
+Mimo jiné také GameObjecty pro správu platformovacích sekcí ze kterých se levely skládají.
 
 #### <a name="PlatformingSection"></a>PlatformingSection
 Označuje platformovací sekci, které může, ale nemusí, předcházet jiná platformovací sekce. Obsahuje 4 child GameObjecty, které platformovací sekci tvoří. 
@@ -86,7 +86,7 @@ NoGoingBackCollider je deaktivovaný (non-trigger) collider, který se vstupem d
 
 <a name="PS_Respawn"></a>PS_Respawn je nic neobsahující game object, jehož transform.position se využívá jako [respawn](#JeremyReset) dané platformovací sekce. 
 
-PS_Start s jeho colliderem označuje začátek platformovací sekce. Na něm je skript PSEnter, ten obsahuje proměnné pro NoGoingBackCollider, předchozí a novou kameru (každý vstup do platformovací sekce je spjat se změnou kamery), maximální počet úskoků na tuto sekci, [respawn point](#PS_Respawn) a nepovinný [MoveLogger](#MoveLogger) předchozí sekce (pokud nějaká byla). Při kolizi skript aktivuje NoGoingBackCollider, [změní priority kamer](#CameraHelper), nastaví [MoveManageru](#MoveManager) maximální počet úskoků, nastaví [Jeremymu](#Jeremy) nový respawn point a pokud je přítomný [MoveLogger předchozí sekce](#MoveLogger), zaloguje počet použitých úskoků.
+PS_Start s jeho colliderem označuje začátek platformovací sekce. Na něm je skript PSEnter, ten obsahuje proměnné pro NoGoingBackCollider, předchozí a novou kameru (každý vstup do platformovací sekce je spjat se změnou kamery), maximální počet úskoků na tuto sekci, [respawn point](#PS_Respawn) a nepovinný [MoveLogger](#MoveLogger) předchozí sekce (pokud nějaká byla). Při kolizi skript aktivuje NoGoingBackCollider, [změní priority kamer](#CameraHelper), nastaví [MoveManageru](#MoveManager) maximální počet úskoků, nastaví [Jeremymu](#Jeremy) nový respawn point a pokud je přítomný [MoveLogger předchozí sekce](#MoveLogger), zaloguje počet použitých úskoků v předchozí sekci.
 
 <a name="MoveLogger"></a>MoveLogger má pouze jednu metodu, která zjistí použitý počet úskoků na platformovací sekci a zapíše ji do [leaderboardu](#LeaderboardMenu).
 
@@ -103,7 +103,7 @@ OnTriggerExit2D vrátí věci do původního stavu (text zmizí, CanScare = fals
 Popis funkcionality a přechodů v menu.
 
 ### <a name="MainMenu"></a> MainMenu
-Hlavní menu je spravováno objektem MenuManager se stejnojmeným skriptem. Všechny funkce zde slouží jako OnClick funkce nějakého tlačítka v menu, nebo ze dále volají z OnClick funkcí.
+Hlavní menu je spravováno objektem MenuManager se stejnojmeným skriptem. Všechny funkce zde slouží jako OnClick funkce nějakého tlačítka v menu, nebo se dále volají z OnClick funkcí.
 
 <a name="PlayMenu"></a>Play funkce (pokud si hráč ještě nezvolil přezdívku) zobrazí input field do kterého hráč zadá svou přezdívku. Pokud si hráč již přezdívku zvolil, zobrazí výběr levelů podle toho, které levely již hráč dokončil. Krom prvního levelu platí, že tlačítko pro spuštění levelu se zobrazí, pokud je předchozí level dokončen.
 
@@ -129,7 +129,7 @@ GetLeaderboard načte data z leaderboardu a a po dobu načítání dat zobrazí 
 
 ClearPreviousEntries zobrazí na všech místech leaderboardu prázdné řetězce.
 
-SetEntry nastaví hráči novou hodnotu v leaderboardu a to v jednom ze dvou případů. Pokud žádnout hodnotu pro daný level a level sekci v leaderboardu ještě nemá, nebo pokud danou level sekci zvládl dohrát s nižším počtem úskoků.
+SetEntry nastaví hráči novou hodnotu v leaderboardu a to v jednom ze dvou případů. Pokud žádnou hodnotu pro daný level a level sekci v leaderboardu ještě nemá, nebo pokud danou level sekci zvládl dohrát s nižším počtem úskoků.
 
 ShowLeaderboard je funkce volaná z [MenuManageru](#MainMenu) při přechodu do LeaderboardMenu.
 
@@ -146,7 +146,7 @@ Je menu, které obstarává PauseMenuManager (se stejnojmeným skriptem) a zobra
 Každý achievement je reprezentován jako ScriptableObject, který má jméno, popis, odměnu (zatím kosmetický doplněk - sprite očí) a bool, zda je achievement splněný, dále je zde také odkaz na inventář, kam se případná odměna přidá, když je achievement splněný.
 
 ### CountingAchievementy
-Potomek Achievementu, který představuje achievement, který je udělen za nějaký počet něčeho (např. achievement za 10 objevených secretů). Tento potomek svého rodiče tedy rozšiřuje o počítadlo a nějakou hraniční hodnotu při jejímž překonání je achievement splněn. Počítadlo pak ostatní skripty mohou zvětšovat pomocí IncreaseCount metody, která se sama stará o případné splnění achievementu.
+Potomek Achievementu. Představuje achievement, který je udělen za nějaký počet něčeho (např. achievement za 10 objevených secretů). Tento potomek svého rodiče tedy rozšiřuje o počítadlo a nějakou hraniční hodnotu při jejímž překonání je achievement splněn. Počítadlo pak ostatní skripty mohou zvětšovat pomocí IncreaseCount metody, která se sama stará o případné splnění achievementu.
 
 ### <a name="AchievementMenu"></a>AchievementManager
 Spravuje AchievementMenu, konkrétně správné zobrazení achievementu v tomto menu. Pro každý achievement metoda vyplní příslušný box jménem, popisem a případně zobrazí odměnu za daný achievement. Pokud je achievement splněný, je označen nápisem "Completed".
@@ -166,7 +166,7 @@ DontDestroyOnLoad objekt, jehož skript obsahuje všechny DataPersistentScriptab
 Zde jsou popsány skripty, které vytvářejí nějaký efekt.
 
 ### MovingObjectSpriteFade
-Tento skript dostane nějaký list SpriteRendererů, nějaký pohybující se objekt a počátek a konec fade efektu. Když se pohybující se objekt nachází před počátkem efektu, nic se neděje. Když se pohybující se objekt nachází mezi počátkem a koncem efektu, nastaví se alfa kanál SpriteRendererů podle toho, jak moc je pohybující se objekt blízko konci. Pokud je pohybující se objekt za koncem efektu, alfa kanál všech SpriteRendererů je nastaven na 0.
+Tento skript dostane list SpriteRendererů, nějaký pohybující se objekt a počátek a konec fade efektu. Když se pohybující se objekt nachází před počátkem efektu, nic se neděje. Když se pohybující se objekt nachází mezi počátkem a koncem efektu, nastaví se alfa kanál SpriteRendererů podle toho, jak moc je pohybující se objekt blízko konci. Pokud je pohybující se objekt za koncem efektu, alfa kanál všech SpriteRendererů je nastaven na 0.
 
 Tento efekt se využívá v Intro levelu při průchodu dveřmi v domě.
 
@@ -175,7 +175,7 @@ Efekt slouží pouze jednomu účelu. Nachází se na objektu s trigger collider
 
 ## Helper skripty
 
-Zde jsou popsány skripty, které obsahují nějaké pomocné funkce k různým aspektům hry a nejsou specializovány na nějaké konkrétní objekt.
+Zde jsou popsány skripty, které obsahují nějaké pomocné funkce k různým aspektům hry a nejsou specializovány na nějaké konkrétní objekty.
 
 ### <a name="AnimationHelper"></a>AnimationHelper
 Obsahuje metody, které pomáhají s animacemi.
